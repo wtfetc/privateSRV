@@ -193,7 +193,7 @@ def chat_bot():
     elif 'job' in request.json:
         bot_custom_webhooks[request.json['job']](request.json)
     return 'OK'
-
+'''
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -208,7 +208,7 @@ def login():
 
     return render_template('login.html')
 
-
+'''
 @app.route('/create_current_month_deals_data_file', methods=['GET'])
 def create_current_month_deals_data_file_route():
     create_current_month_deals_data_file()
