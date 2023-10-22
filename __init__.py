@@ -16,6 +16,7 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     traces_sample_rate=1.0
 )
+
 '''
 app = Flask(__name__)
 app.secret_key = 'some very secret phrase for web_app_4dk'
