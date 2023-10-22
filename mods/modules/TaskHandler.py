@@ -32,6 +32,7 @@ def fill_task_title(req, event):
 
     company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
     print(company_crm)
+    print ("4")
     uf_crm_task = []
     if not company_crm:
        
@@ -66,25 +67,30 @@ def fill_task_title(req, event):
             company_id = best_value_company #Это для тайтла
             
     else:
+        print ("5")
         company_id = company_crm[0][3:]
 
  #   if event == 'ONTASKADD':
   #      check_similar_tasks_this_hour(task_info, company_id)
 
 
+    print ("6")
     company_info = send_bitrix_request('crm.company.get', {
         'ID': company_id,
     })
     if company_info and company_info['TITLE'].strip() in task_info['title']: # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
+        print ("7")
         return
 
     if not uf_crm_task: #если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
+        print ("8")
         send_bitrix_request('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
             }})
     else:
+        print ("9")
         send_bitrix_request('tasks.task.update', {
             'taskId': task_id,
             'fields': {
@@ -97,6 +103,7 @@ def fill_task_title(req, event):
 def task_handler(req, event=None):
     try:
         task_info = fill_task_title(req, event)
+        print ("10")
     except:
         return
     '''
