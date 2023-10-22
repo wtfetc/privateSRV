@@ -20,7 +20,7 @@ sentry_sdk.init(
 '''
 app = Flask(__name__)
 app.secret_key = 'some very secret phrase for web_app_4dk'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/web_app_4dk/web_app_4dk/DataBase.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////root/application/mods/DataBase.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
