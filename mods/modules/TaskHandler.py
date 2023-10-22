@@ -27,14 +27,17 @@ def fill_task_title(req, event):
         return
 
     company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
+    print(company_crm)
     uf_crm_task = []
     if not company_crm:
        
      
+        print("1")
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
         if not contact_crm:
             return
         contact_crm = contact_crm[0][2:]
+         print(contact_crm)
         contact_companies = list(map(lambda x: x['COMPANY_ID'], send_bitrix_request('crm.contact.company.items.get', {'id': contact_crm})))
         if not contact_companies:
             return
@@ -49,7 +52,7 @@ def fill_task_title(req, event):
         })
         '''
         if contact_companies_info:
-           
+            print("2")
            # for i in range(len(contact_companies_info)):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
