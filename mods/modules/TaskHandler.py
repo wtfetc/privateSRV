@@ -15,11 +15,19 @@ def fill_task_title(req, event):
     B = Bitrix(webhook)
     task_id = req['data[FIELDS_AFTER][ID]']
     print(task_id)
+    task_info = b.get_all(
+        'tasks.task.get', {
+        'taskId': task_id,
+        'select': ['*', 'UF_*']
+    })
+    print("ok")
+    '''
     task_info = send_bitrix_request('tasks.task.get', {
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
     print("ok")
+    '''
     if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
         print("0")
         return
