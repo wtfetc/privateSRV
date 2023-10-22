@@ -13,7 +13,6 @@ def fill_task_title(req, event):
     print(task_id)
     BitrixQ = 'aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcvCg=='
     webhook = base64.b64decode(BitrixQ).decode('utf-8')
-    print (webhook)
     b = Bitrix(webhook)
         task_info = b.get_all(
         'tasks.task.get', {
