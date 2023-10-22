@@ -104,12 +104,25 @@ def fill_task_title(req, event):
 
     if not uf_crm_task: #если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
         print ("8")
-        send_bitrix_request('tasks.task.update', {
+        #send_bitrix_request('tasks.task.update', {
+        #    'taskId': task_id,
+        #    'fields': {
+        #        'TITLE': f"{task_info['title']} {company_info['TITLE']}",
+        #    }})
+        b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
             }})
     else:
+        print ("9")
+         b.call('tasks.task.update', {
+            'taskId': task_id,
+            'fields': {
+                'TITLE': f"{task_info['title']} {company_info['TITLE']}",
+                'UF_CRM_TASK': uf_crm_task,
+            }})
+        '''
         print ("9")
         send_bitrix_request('tasks.task.update', {
             'taskId': task_id,
@@ -117,6 +130,7 @@ def fill_task_title(req, event):
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
             }})
+        '''
     return task_info
 
 
