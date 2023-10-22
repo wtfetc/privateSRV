@@ -4,9 +4,10 @@ import os
 from flask import request, render_template, redirect, url_for, session
 from flask_login import login_user, login_required, current_user
 
-from web_app_4dk import app
-from web_app_4dk import login_manager
-from web_app_4dk.models import UserAuth
+from __init__.py import app
+from __init__.py import login_manager
+from models import UserAuth
+'''
 from web_app_4dk.modules.ServiceTask import create_service_tasks, create_service_tasks_report
 from web_app_4dk.modules.UpdateCompanyValue import update_company_value
 from web_app_4dk.modules.UpdateCode1C import update_code_1c
@@ -49,7 +50,9 @@ from web_app_4dk.modules.CreateTasksActiveSales import create_tasks_active_sales
 from web_app_4dk.modules.New1cConnect import connect_1c_event_handler
 from web_app_4dk.modules.AddCallsAmountToTask import add_calls_amount_to_task
 from web_app_4dk.modules.CheckProductNomenclature import check_product_nomenclature
+'''
 from web_app_4dk.modules.TaskHandler import task_handler
+'''
 from web_app_4dk.modules.CreateRevenueListElements import create_revenue_list_elements
 from web_app_4dk.modules.GetRegnumberElements import get_regnumber_elements
 from web_app_4dk.modules.ChangeTaskGroup import change_task_group
@@ -78,10 +81,10 @@ from web_app_4dk.modules.SendCompanyInteractionInfo import send_company_interact
 from web_app_4dk.chat_bot.SendMessage import bot_send_message
 from web_app_4dk.chat_bot.BotHandler import message_handler
 from web_app_4dk.chat_bot.SendDealChangedUserMessage import send_deal_changed_user_message
-
+'''
 
 # Словарь функций для вызова из кастомного запроса
-
+'''
 custom_webhooks = {
     'create_task_service': create_service_tasks,
     'create_service_tasks_report': create_service_tasks_report,
@@ -134,28 +137,28 @@ custom_webhooks = {
     'send_company_responsible_tlp_message': send_company_responsible_tlp_message,
     'send_company_interaction_info': send_company_interaction_info
 }
-
+'''
 # Словарь функций для вызова из запроса со стандартным методом
 
 default_webhooks = {
-    'ONCRMDEALUPDATE': update_code_1c,
-    'ONCRMDEALDELETE': update_company_value,
-    'ONVOXIMPLANTCALLEND': update_call_statistic,
-    'ONCRMDEALADD': create_deal,
-    'ONCRMACTIVITYADD': complete_call_activity,
+   # 'ONCRMDEALUPDATE': update_code_1c,
+   #  'ONCRMDEALDELETE': update_company_value,
+   # 'ONVOXIMPLANTCALLEND': update_call_statistic,
+   # 'ONCRMDEALADD': create_deal,
+    # 'ONCRMACTIVITYADD': complete_call_activity,
     'ONTASKADD': task_handler,
     'ONTASKUPDATE': task_handler,
-    'ONCRMCONTACTUPDATE': update_contact_photo,
+   #  'ONCRMCONTACTUPDATE': update_contact_photo,
 }
 
-
+'''
 # Словарь функций чат-бота для вызова из кастомного запроса
 
 bot_custom_webhooks = {
     'send_message': bot_send_message,
     'send_deal_changed_user_message': send_deal_changed_user_message,
 }
-
+'''
 
 # Обработчик стандартных вебхуков Битрикс
 @app.route('/bitrix/default_webhook', methods=['POST', 'HEAD'])
@@ -176,7 +179,7 @@ def custom_webhook():
     custom_webhooks[job](request.args)
     return 'OK'
 
-
+'''
 # Обработчик запросов чат-бота
 @app.route('/bitrix/chat_bot/', methods=['POST', 'HEAD'])
 def chat_bot():
@@ -333,3 +336,5 @@ def read_logs():
             request_text = request_text.split(',')
             final_text.append([info_text, request_text])
         return final_text[::-1]
+
+        '''
