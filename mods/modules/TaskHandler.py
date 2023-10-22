@@ -116,7 +116,7 @@ def fill_task_title(req, event):
             }})
     else:
         print ("9")
-         b.call('tasks.task.update', {
+        b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
