@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from time import time, sleep
 from random import randint
 import json
+import base64
 
 # from web_app_4dk.tools import send_bitrix_request
 from mods.tools import send_bitrix_request
