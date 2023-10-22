@@ -4,7 +4,7 @@ from random import randint
 import json
 
 # from web_app_4dk.tools import send_bitrix_request
-from tools import send_bitrix_request
+from mods.tools import send_bitrix_request
 
 
 def fill_task_title(req, event):
