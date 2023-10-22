@@ -79,7 +79,7 @@ def fill_task_title(req, event):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
            # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
-            best_value_company = contact_companies[0]
+            best_value_company = contact_companies
             uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно толлько перезаписать обоими значениями заново
             company_id = best_value_company #Это для тайтла
             
