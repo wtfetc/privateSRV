@@ -37,7 +37,8 @@ def fill_task_title(req, event):
         contact_companies = list(map(lambda x: x['COMPANY_ID'], send_bitrix_request('crm.contact.company.items.get', {'id': contact_crm})))
         if not contact_companies:
             return
-           ''' 
+        
+        '''
         contact_companies_info = send_bitrix_request('crm.company.list', {
            'select': ['UF_CRM_1660818061808'],     # Вес сделок
             'filter': {
