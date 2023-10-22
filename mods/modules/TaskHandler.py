@@ -95,7 +95,7 @@ def fill_task_title(req, event):
     #    'ID': company_id,
     #})
     company_info = b.get_by_ID(
-        ''crm.company.get'{
+        'crm.company.get'{
         'ID': company_id,
     })
     if company_info and company_info['TITLE'].strip() in task_info['title']: # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
