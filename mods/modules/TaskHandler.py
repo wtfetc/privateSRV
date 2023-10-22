@@ -74,7 +74,7 @@ def fill_task_title(req, event):
         })
         '''
         if contact_companies:
-            print("2")
+            print(contact_companies)
            # for i in range(len(contact_companies_info)):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
