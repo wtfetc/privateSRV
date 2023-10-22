@@ -25,6 +25,7 @@ def fill_task_title(req, event):
     '''
 
     if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']: # ufCrmTask - связь с сущностью (список)
+        print("00")
         return
 
     company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
