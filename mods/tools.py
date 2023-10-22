@@ -2,7 +2,7 @@ import base64
 
 import requests
 
-import authentication
+from mods.modules import authentication
 
 
 
