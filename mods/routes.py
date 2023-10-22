@@ -145,7 +145,7 @@ default_webhooks = {
    #  'ONCRMDEALDELETE': update_company_value,
    # 'ONVOXIMPLANTCALLEND': update_call_statistic,
    # 'ONCRMDEALADD': create_deal,
-    'ONCRMACTIVITYADD': complete_call_activity,
+   # 'ONCRMACTIVITYADD': complete_call_activity,
     'ONTASKADD': task_handler,
     'ONTASKUPDATE': task_handler,
    #  'ONCRMCONTACTUPDATE': update_contact_photo,
