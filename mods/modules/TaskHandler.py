@@ -15,6 +15,7 @@ def fill_task_title(req, event):
         'select': ['*', 'UF_*']
     })
     if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
+        print("0")
         return
     task_info = task_info['task']
    # task_registry(task_info, event)
