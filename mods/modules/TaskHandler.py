@@ -12,8 +12,11 @@ def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
     print(task_id)
     BitrixQ = 'aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcvCg=='
+    print("q1")
     webhook = base64.b64decode(BitrixQ).decode('utf-8')
+    print("q2")
     b = Bitrix(webhook)
+    print("q3")
     task_info = b.get_all(
         'tasks.task.get', {
         'taskId': task_id,
