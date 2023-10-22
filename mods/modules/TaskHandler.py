@@ -14,7 +14,7 @@ def fill_task_title(req, event):
     BitrixQ = 'aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcvCg=='
     webhook = base64.b64decode(BitrixQ).decode('utf-8')
     b = Bitrix(webhook)
-        task_info = b.get_all(
+    task_info = b.get_all(
         'tasks.task.get', {
         'taskId': task_id,
         'select': ['*', 'UF_*']
