@@ -1,6 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from fast_bitrix24 import Bitrix
+import base64
+
+BitrixQ = 'aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcvCg=='
+webhook = base64.b64decode(BitrixQ).decode('utf-8')
+B = Bitrix(webhook)
+  
+
 # import sentry_sdk
 # from sentry_sdk.integrations.flask import FlaskIntegration
 
