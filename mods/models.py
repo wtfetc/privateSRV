@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 
-from . import db
+from mods import db
 
 
 class UserAuth(db.Model, UserMixin):
