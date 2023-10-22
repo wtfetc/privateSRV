@@ -7,16 +7,17 @@ import base64
 # from web_app_4dk.tools import send_bitrix_request
 from mods.tools import send_bitrix_request
 from fast_bitrix24 import Bitrix
-
+webhook = "https://vc1c.bitrix24.ru/rest/479/mjmdi5w3wvl9jo5g/"
+b = Bitrix(webhook)
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
     print(task_id)
     #BitrixQ = 'Imh0dHBzOi8vdmMxYy5iaXRyaXgyNC5ydS9yZXN0LzQ3OS9tam1kaTV3M3d2bDlqbzVnLyIK'
     print("q1")
     #webhook = base64.b64decode(BitrixQ).decode('utf-8')
-    webhook = "https://vc1c.bitrix24.ru/rest/479/mjmdi5w3wvl9jo5g/"
+    #webhook = "https://vc1c.bitrix24.ru/rest/479/mjmdi5w3wvl9jo5g/"
     print("q2")
-    b = Bitrix(webhook)
+    #b = Bitrix(webhook)
     print("q3")
     task_info = b.get_all(
         'tasks.task.get', {
