@@ -10,6 +10,7 @@ from mods.tools import send_bitrix_request
 def fill_task_title(req, event):
     print ("тут")
     task_id = req['data[FIELDS_AFTER][ID]']
+    print(task_id)
     task_info = send_bitrix_request('tasks.task.get', {
         'taskId': task_id,
         'select': ['*', 'UF_*']
