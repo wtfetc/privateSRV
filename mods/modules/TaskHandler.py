@@ -85,7 +85,7 @@ def fill_task_title(req, event):
     else:
         print ("5")
         company_id = company_crm[0][3:]
-
+        print (company_id)
  #   if event == 'ONTASKADD':
   #      check_similar_tasks_this_hour(task_info, company_id)
 
@@ -94,7 +94,7 @@ def fill_task_title(req, event):
     #company_info = send_bitrix_request('crm.company.get', {
     #    'ID': company_id,
     #})
-    company_info = b.get_by_ID(
+    company_info = b.get_all(
         'crm.company.get',{
         'ID': company_id,
     })
