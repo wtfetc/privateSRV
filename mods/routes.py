@@ -4,9 +4,9 @@ import os
 from flask import request, render_template, redirect, url_for, session
 from flask_login import login_user, login_required, current_user
 
-from __init__.py import app
-from __init__.py import login_manager
-from models import UserAuth
+from mods import app
+from mods import login_manager
+from mods.models import UserAuth
 '''
 from web_app_4dk.modules.ServiceTask import create_service_tasks, create_service_tasks_report
 from web_app_4dk.modules.UpdateCompanyValue import update_company_value
@@ -51,7 +51,7 @@ from web_app_4dk.modules.New1cConnect import connect_1c_event_handler
 from web_app_4dk.modules.AddCallsAmountToTask import add_calls_amount_to_task
 from web_app_4dk.modules.CheckProductNomenclature import check_product_nomenclature
 '''
-from web_app_4dk.modules.TaskHandler import task_handler
+from mods.modules.TaskHandler import task_handler
 '''
 from web_app_4dk.modules.CreateRevenueListElements import create_revenue_list_elements
 from web_app_4dk.modules.GetRegnumberElements import get_regnumber_elements
