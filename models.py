@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 
-from web_app_4dk import db
+from __init__.py import db
 
 
 class UserAuth(db.Model, UserMixin):
