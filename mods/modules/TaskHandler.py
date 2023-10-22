@@ -37,7 +37,7 @@ def fill_task_title(req, event):
         if not contact_crm:
             return
         contact_crm = contact_crm[0][2:]
-         print(contact_crm)
+        print(contact_crm)
         contact_companies = list(map(lambda x: x['COMPANY_ID'], send_bitrix_request('crm.contact.company.items.get', {'id': contact_crm})))
         if not contact_companies:
             return
