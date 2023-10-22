@@ -1,3 +1,3 @@
-from __init.__.py import app
+from __init__.py import app
 
 app.run(host='0.0.0.0', debug=True)
