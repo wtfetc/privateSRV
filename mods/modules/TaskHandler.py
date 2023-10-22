@@ -5,7 +5,12 @@ import json
 
 # from web_app_4dk.tools import send_bitrix_request
 from mods.tools import send_bitrix_request
+from fast_bitrix24 import Bitrix
 
+BitrixQ = 'aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcvCg=='
+webhook = base64.b64decode(BitrixQ).decode('utf-8')
+print (webhook)
+B = Bitrix(webhook)
 
 def fill_task_title(req, event):
     print ("тут")
