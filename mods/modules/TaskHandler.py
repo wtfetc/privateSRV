@@ -61,6 +61,7 @@ def fill_task_title(req, event):
         print(contact_crm)
         contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
         if not contact_companies:
+            print ("13")
             return
         
         '''
@@ -72,7 +73,7 @@ def fill_task_title(req, event):
             
         })
         '''
-        if contact_companies_info:
+        if contact_companies:
             print("2")
            # for i in range(len(contact_companies_info)):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
