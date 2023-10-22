@@ -145,7 +145,7 @@ default_webhooks = {
    #  'ONCRMDEALDELETE': update_company_value,
    # 'ONVOXIMPLANTCALLEND': update_call_statistic,
    # 'ONCRMDEALADD': create_deal,
-    # 'ONCRMACTIVITYADD': complete_call_activity,
+   # 'ONCRMACTIVITYADD': complete_call_activity,
     'ONTASKADD': task_handler,
     'ONTASKUPDATE': task_handler,
    #  'ONCRMCONTACTUPDATE': update_contact_photo,
@@ -164,16 +164,19 @@ bot_custom_webhooks = {
 @app.route('/bitrix/default_webhook', methods=['POST', 'HEAD'])
 def default_webhook():
     #update_logs("Получен дефолтный вебхук", request.form)
+    print ("го")
     if request.form['event'] == 'ONTASKADD':
+        print ("го2")
         default_webhooks[request.form['event']](request.form, event='ONTASKADD')
-    else:
-        default_webhooks[request.form['event']](request.form)
+    # else:
+       # default_webhooks[request.form['event']](request.form)
     return 'OK'
 
 
 # Обработчик кастомных вебхуков Битрикс
 @app.route('/bitrix/custom_webhook', methods=['POST', 'HEAD'])
 def custom_webhook():
+    print ("го3")
     #update_logs("Получен кастомный вебхук", request.args)
     job = request.args['job']
     custom_webhooks[job](request.args)
