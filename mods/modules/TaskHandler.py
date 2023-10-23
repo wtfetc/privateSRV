@@ -57,7 +57,7 @@ def fill_task_title(req, event):
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
         if not contact_crm:
             return
-        contact_crm = contact_crm[0][2:]
+        contact_crm = int(contact_crm[0][2:])
         print(contact_crm)
         contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
         if not contact_companies:
