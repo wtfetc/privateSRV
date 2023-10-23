@@ -57,7 +57,7 @@ def fill_task_title(req, event):
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
         if not contact_crm:
             return
-        contact_crm = int(contact_crm[0][2:])
+        contact_crm = contact_crm[0][2:]
         print(contact_crm)
         contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
         if not contact_companies:
@@ -80,10 +80,10 @@ def fill_task_title(req, event):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
            # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
-            best_value_company = int(contact_companies[0])
+            best_value_company = contact_companies[0]
             print (best_value_company)
             print("667")
-            uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно толлько перезаписать обоими значениями заново
+            uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(contact_crm)] # нельзя дописать, можно толлько перезаписать обоими значениями заново
             print("668")
             company_id = best_value_company #Это для тайтла
             #print (uf_crm_task)
