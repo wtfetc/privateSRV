@@ -82,7 +82,9 @@ from web_app_4dk.chat_bot.SendMessage import bot_send_message
 from web_app_4dk.chat_bot.BotHandler import message_handler
 from web_app_4dk.chat_bot.SendDealChangedUserMessage import send_deal_changed_user_message
 '''
-
+custom_webhooks = {
+    'testjob': testjob
+}
 # Словарь функций для вызова из кастомного запроса
 '''
 custom_webhooks = {
