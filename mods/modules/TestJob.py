@@ -9,7 +9,7 @@ b = Bitrix(webhook)
 def test_job(req, event=None):
     try:
        b.call('im.notify.system.add', {
-        'USER_ID': "1",
+        'USER_ID': "479",
         'MESSAGE': 'вам поставлена задача'})
     except:
         return
