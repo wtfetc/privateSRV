@@ -12,7 +12,7 @@ def test_job(req, event=None):
        print ("2")
        print (req['userid']) 
        useridformatted = str([req['userid']])
-       useridformatted = useridformatted[7:(len(useridformatted]-1)]
+       useridformatted = useridformatted[7:(len(useridformatted)-1)]
        print (useridformatted) 
        b.call('im.notify.system.add', {
         'USER_ID': useridformatted,
