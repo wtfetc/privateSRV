@@ -129,6 +129,12 @@ def fill_task_title(req, event):
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
             }})
+
+        # 25102023
+        b.call('im.notify.system.add', {
+        'USER_ID': 479,
+        'MESSAGE': f'Элементы РТиУ заполнены'})
+        
         '''
         print ("9")
         send_bitrix_request('tasks.task.update', {
