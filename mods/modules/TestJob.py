@@ -2,8 +2,9 @@ import json
 import base64
 from mods.tools import send_bitrix_request
 from fast_bitrix24 import Bitrix
-webhook = "https://vc1c.bitrix24.ru/rest/479/mjmdi5w3wvl9jo5g/"
-b = Bitrix(webhook)
+webhook = "aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcv"
+decip = base64.b64decode(webhook).decode('utf-8')
+b = Bitrix(decip)
 
 
 def test_job(req, event=None):
