@@ -11,7 +11,7 @@ def test_job(req, event=None):
     try:
        print ("2")
        b.call('im.notify.system.add', {
-        'USER_ID': "479",
+        'USER_ID': [req['userid']],
         'MESSAGE': 'вам поставлена задача'})
     except:
         print ("3")
