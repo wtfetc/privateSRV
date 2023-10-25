@@ -11,6 +11,7 @@ def test_job(req, event=None):
     try:
        print ("2")
        useridformatted = str([req['userid']])[5:]
+       print (useridformatted ) 
        b.call('im.notify.system.add', {
         'USER_ID': useridformatted,
         'MESSAGE': 'вам поставлена задача'})
