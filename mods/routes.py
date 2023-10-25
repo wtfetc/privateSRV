@@ -52,6 +52,7 @@ from web_app_4dk.modules.AddCallsAmountToTask import add_calls_amount_to_task
 from web_app_4dk.modules.CheckProductNomenclature import check_product_nomenclature
 '''
 from mods.modules.TaskHandler import task_handler
+from mods.modules.TestJob import test_job
 '''
 from web_app_4dk.modules.CreateRevenueListElements import create_revenue_list_elements
 from web_app_4dk.modules.GetRegnumberElements import get_regnumber_elements
