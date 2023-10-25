@@ -13,7 +13,7 @@ def test_job(req, event=None):
        b.call('im.notify.system.add', {
         'USER_ID': [req['userid']],
         'MESSAGE': 'вам поставлена задача'})
-        print ("4")
+       print ("4")
     except:
         print ("3")
         return
