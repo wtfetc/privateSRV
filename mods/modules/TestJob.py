@@ -10,8 +10,9 @@ def test_job(req, event=None):
     print ("1")
     try:
        print ("2")
+       useridformatted = [req['userid']][5:]
        b.call('im.notify.system.add', {
-        'USER_ID': [req['userid']],
+        'USER_ID': useridformatted,
         'MESSAGE': 'вам поставлена задача'})
        print ("4")
     except:
