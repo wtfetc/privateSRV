@@ -10,6 +10,7 @@ def test_job(req, event=None):
     print ("1")
     try:
        print ("2")
+       print (req['userid']) 
        useridformatted = str([req['userid']])[5:]
        print (useridformatted ) 
        b.call('im.notify.system.add', {
