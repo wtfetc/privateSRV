@@ -179,6 +179,7 @@ def custom_webhook():
     print ("го3")
     #update_logs("Получен кастомный вебхук", request.args)
     job = request.args['job']
+    print (job)
     custom_webhooks[job](request.args)
     return 'OK'
 
