@@ -17,11 +17,9 @@ def test_job(req, event=None):
        print (useridformatted)
        message_text =  f'Внимание! У клиента uiiu заканчивается оплата по договору. Пожалуйста, свяжитесь с клиентом.\n' \
                        f'https://vc4dk.bitrix24.ru/crm/deal/details/' \
-                       f'\n' \
                        f'Внимание! У клиента uiiu заканчивается оплата по договору. Пожалуйста, свяжитесь с клиентом.\n' \
-                       f'https://vc4dk.bitrix24.ru/crm/deal/details/' \
-                       f'\n'
-       b.call('im.notify.system.add', {
+                       f'https://vc4dk.bitrix24.ru/crm/deal/details/'
+                       b.call('im.notify.system.add', {
         'USER_ID': useridformatted,
         'MESSAGE':  message_text
        })
