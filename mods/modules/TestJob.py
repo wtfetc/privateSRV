@@ -14,10 +14,13 @@ def test_job(req, event=None):
        print (req['userid']) 
        useridformatted = str([req['userid']])
        useridformatted = useridformatted[7:(len(useridformatted)-2)]
-       print (useridformatted) 
+       print (useridformatted)
+       message_text =  f'\nвам поставлена задача' \
+                       f'\n текст' 
        b.call('im.notify.system.add', {
         'USER_ID': useridformatted,
-        'MESSAGE': f'\nвам поставлена задача'})
+        'MESSAGE':  message_text
+       })
        print ("4")
     except:
         print ("3")
