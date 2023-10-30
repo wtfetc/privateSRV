@@ -8,7 +8,8 @@ webhook = "aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcv"
 decip = base64.b64decode(webhook).decode('utf-8')
 b = Bitrix(decip)
 TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
-chat_id = "-4033252882"
+#chat_id = "-4033252882"
+chat_id = "176393496"
 
 def test_job(req, event=None):
     print ("1")
