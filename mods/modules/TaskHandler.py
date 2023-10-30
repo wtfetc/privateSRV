@@ -3,6 +3,7 @@ from time import time, sleep
 from random import randint
 import json
 import base64
+import requests
 
 # from web_app_4dk.tools import send_bitrix_request
 from mods.tools import send_bitrix_request
@@ -12,11 +13,10 @@ decip = base64.b64decode(webhook).decode('utf-8')
 b = Bitrix(decip)
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
-    print(task_id)
-    print("q1")
-    print("q2")
-    #b = Bitrix(webhook)
-    print("q3")
+    TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
+    chat_id = "-4033252882"
+    message = f"Новая задача {task_id}" 
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     task_info = b.get_all(
         'tasks.task.get', {
         'taskId': task_id,
