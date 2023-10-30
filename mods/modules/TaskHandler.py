@@ -11,10 +11,11 @@ from fast_bitrix24 import Bitrix
 webhook = "aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcv"
 decip = base64.b64decode(webhook).decode('utf-8')
 b = Bitrix(decip)
+TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
+chat_id = "-4033252882"
+
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
-    TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
-    chat_id = "-4033252882"
     message = f"Новая задача {task_id}" 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     task_info = b.get_all(
