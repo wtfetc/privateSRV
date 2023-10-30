@@ -27,8 +27,8 @@ def test_job(req, event=None):
         'MESSAGE':  message_text
        })
        print ("4")
-       #message = f"Новая задача {req[name]}\nСсылка на задачу - https://vc1с.bitrix24.ru/company/personal/user/479/tasks/task/view/{req[id]}/" 
-       message = "лррр"
+       message = f"Новая задача {req[name]}\nСсылка на задачу - https://vc1с.bitrix24.ru/company/personal/user/479/tasks/task/view/{req[id]}/" 
+       #message = "лррр"
        url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
        requests.get(url).json()
     except:
