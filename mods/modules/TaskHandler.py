@@ -18,6 +18,7 @@ def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
     message = f"Новая задача" 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+    print(requests.get(url).json())
     task_info = b.get_all(
         'tasks.task.get', {
         'taskId': task_id,
