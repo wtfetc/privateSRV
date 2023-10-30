@@ -5,7 +5,8 @@ from fast_bitrix24 import Bitrix
 webhook = "aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcv"
 decip = base64.b64decode(webhook).decode('utf-8')
 b = Bitrix(decip)
-
+TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
+chat_id = "-4033252882"
 
 def test_job(req, event=None):
     print ("1")
@@ -24,6 +25,9 @@ def test_job(req, event=None):
         'MESSAGE':  message_text
        })
        print ("4")
+       message = f"Новая задача {req[name]}\nСсылка на задачу - https://vc1с.bitrix24.ru/company/personal/user/479/tasks/task/view/{req[id]}/" 
+       url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
+       print(requests.get(url).json())
     except:
         print ("3")
         return
