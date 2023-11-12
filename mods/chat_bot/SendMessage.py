@@ -10,7 +10,7 @@ from fast_bitrix24 import Bitrix
 webhook = "aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L29jNzloY3AyYWNpMXc4dmwv"
 decip = base64.b64decode(webhook).decode('utf-8')
 b = Bitrix(decip)
-
+print ("2")
 def bot_send_message(req: dict) -> None:
 
     """
@@ -21,6 +21,7 @@ def bot_send_message(req: dict) -> None:
     }
     :return:
     """
+    print ("3")
     dialog_id = req['dialog_id'][5:] if 'user' in req['dialog_id'] else req['dialog_id']
     message_text = req['message']
     if 'pass_replace' not in req or req['pass_replace']:
@@ -33,4 +34,5 @@ def bot_send_message(req: dict) -> None:
         'MESSAGE': message_text,
     }
     #r = requests.post(url=f'{authentication("Chat-bot").strip()}imbot.message.add', json=data)
+    print ("4")
     b.call(imbot.message.add, json=data)
