@@ -159,7 +159,7 @@ default_webhooks = {
 # Словарь функций чат-бота для вызова из кастомного запроса
 
 bot_custom_webhooks = {
-    'send_message': bot_send_message,
+    #'send_message': bot_send_message,
     'send_deal_changed_user_message': send_deal_changed_user_message,
 }
 
