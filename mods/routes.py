@@ -81,8 +81,9 @@ from web_app_4dk.modules.SendCompanyResponsibleTLPMessage import send_company_re
 from web_app_4dk.modules.SendCompanyInteractionInfo import send_company_interaction_info
 from web_app_4dk.chat_bot.SendMessage import bot_send_message
 from web_app_4dk.chat_bot.BotHandler import message_handler
-from web_app_4dk.chat_bot.SendDealChangedUserMessage import send_deal_changed_user_message
 '''
+from web_app_4dk.chat_bot.SendDealChangedUserMessage import send_deal_changed_user_message
+
 custom_webhooks = {
     'testjob': test_job
 }
@@ -154,14 +155,14 @@ default_webhooks = {
    #  'ONCRMCONTACTUPDATE': update_contact_photo,
 }
 
-'''
+
 # Словарь функций чат-бота для вызова из кастомного запроса
 
 bot_custom_webhooks = {
     'send_message': bot_send_message,
     'send_deal_changed_user_message': send_deal_changed_user_message,
 }
-'''
+
 
 # Обработчик стандартных вебхуков Битрикс
 @app.route('/bitrix/default_webhook', methods=['POST', 'HEAD'])
@@ -186,7 +187,7 @@ def custom_webhook():
     custom_webhooks[job](request.args)
     return 'OK'
 
-'''
+
 # Обработчик запросов чат-бота
 @app.route('/bitrix/chat_bot/', methods=['POST', 'HEAD'])
 def chat_bot():
