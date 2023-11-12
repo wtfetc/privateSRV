@@ -35,4 +35,4 @@ def bot_send_message(req: dict) -> None:
     }
     #r = requests.post(url=f'{authentication("Chat-bot").strip()}imbot.message.add', json=data)
     print ("4")
-    b.call(imbot.message.add, json=data)
+    b.call('imbot.message.add', json=data)
