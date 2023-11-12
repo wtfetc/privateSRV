@@ -1,4 +1,5 @@
 from time import time
+import base64
 
 import requests
 
