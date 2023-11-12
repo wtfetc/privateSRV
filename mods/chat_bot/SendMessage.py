@@ -2,9 +2,13 @@ from time import time
 
 import requests
 
-from web_app_4dk.modules.authentication import authentication
-from web_app_4dk.tools import send_bitrix_request
-
+#from web_app_4dk.modules.authentication import authentication
+#from web_app_4dk.tools import send_bitrix_request
+from mods.tools import send_bitrix_request
+from fast_bitrix24 import Bitrix
+webhook = "aHR0cHM6Ly92YzFjLmJpdHJpeDI0LnJ1L3Jlc3QvNDc5L21qbWRpNXczd3ZsOWpvNWcv"
+decip = base64.b64decode(webhook).decode('utf-8')
+b = Bitrix(decip)
 
 def bot_send_message(req: dict) -> None:
 
