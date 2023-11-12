@@ -30,7 +30,7 @@ def bot_send_message(req: dict) -> None:
     data = {
         'BOT_ID': '497',
         'CLIENT_ID': '4c845jqm8lvb9tbb6yzluvkzc59rhwv3',
-        'DIALOG_ID': 1,
+        'DIALOG_ID': dialog_id,
         'MESSAGE': message_text,
     }
     #r = requests.post(url=f'{authentication("Chat-bot").strip()}imbot.message.add', json=data)
