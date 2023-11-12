@@ -22,7 +22,7 @@ def bot_send_message(req: dict) -> None:
     :return:
     """
     print ("3")
-    dialog_id = req['dialog_id'][5:] if 'user' in req['dialog_id'] else req['dialog_id']
+    dialog_id = "479" # req['dialog_id'][5:] if 'user' in req['dialog_id'] else req['dialog_id']
     message_text = req['message']
     if 'pass_replace' not in req or req['pass_replace']:
         message_text = message_text.replace('_', '\n')
