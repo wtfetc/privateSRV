@@ -82,7 +82,7 @@ from web_app_4dk.modules.SendCompanyInteractionInfo import send_company_interact
 from web_app_4dk.chat_bot.SendMessage import bot_send_message
 from web_app_4dk.chat_bot.BotHandler import message_handler
 '''
-from web_app_4dk.chat_bot.SendDealChangedUserMessage import send_deal_changed_user_message
+from mods.chat_bot.SendDealChangedUserMessage import send_deal_changed_user_message
 
 custom_webhooks = {
     'testjob': test_job
