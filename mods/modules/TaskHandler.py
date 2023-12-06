@@ -72,7 +72,7 @@ def fill_task_title(req, event):
         print("1")
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
         if not contact_crm:
-        return
+            return
         contact_crm = contact_crm[0][2:]
         print(contact_crm)
         contact_companies = list(
