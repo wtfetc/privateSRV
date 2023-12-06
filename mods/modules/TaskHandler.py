@@ -83,7 +83,7 @@ if not company_crm:
         print ("13")
         return
         
- '''
+'''
         contact_companies_info = send_bitrix_request('crm.company.list', {
            'select': ['UF_CRM_1660818061808'],     # Вес сделок
             'filter': {
