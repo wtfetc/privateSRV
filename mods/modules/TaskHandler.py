@@ -25,15 +25,14 @@ def fill_task_title(req, event):
         'select': ['*', 'UF_*']
     })
     print("ok")
-   '''
-    task_info = send_bitrix_request('tasks.task.get', {
+   
+task_info = send_bitrix_request('tasks.task.get', {
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
     print("ok")
-   '''
-    #06 12 2023
-    deals_info = b.get_all('crm.deal.list', {
+#06 12 2023
+deals_info = b.get_all('crm.deal.list', {
         'select': [
             'TITLE',
             'TYPE_ID',
@@ -47,18 +46,20 @@ def fill_task_title(req, event):
         'filter': {
         'CATEGORY_ID': '4',
         'ID': '2899'}})
-    print(deals_info)
-    print('ooo')
-    '''
-    if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
-        print("0")
-        return
-    task_info = task_info['task']
-   # task_registry(task_info, event)
-    '''
+print(deals_info)
+print('ooo')
+    
+
+if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
+    print("0")
+    return
+task_info = task_info['task']
+# task_registry(task_info, event)
+    
+'''
     if task_info['closedDate'] and task_info['ufAuto934103382947'] != '1':
         send_notification(task_info, 'Завершение')
-    '''
+'''
 
     if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']: # ufCrmTask - связь с сущностью (список)
         print("00")
@@ -82,7 +83,7 @@ def fill_task_title(req, event):
             print ("13")
             return
         
-        '''
+ '''
         contact_companies_info = send_bitrix_request('crm.company.list', {
            'select': ['UF_CRM_1660818061808'],     # Вес сделок
             'filter': {
@@ -90,7 +91,7 @@ def fill_task_title(req, event):
             }
             
         })
-        '''
+'''
         if contact_companies:
             print(contact_companies)
             print("666")
@@ -153,7 +154,7 @@ def fill_task_title(req, event):
         'USER_ID': 479,
         'MESSAGE': f'Элементы РТиУ заполнены'})
         
-        '''
+'''
         print ("9")
         send_bitrix_request('tasks.task.update', {
             'taskId': task_id,
@@ -161,7 +162,7 @@ def fill_task_title(req, event):
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
             }})
-        '''
+'''
     return task_info
 
 
@@ -171,6 +172,6 @@ def task_handler(req, event=None):
         print ("10")
     except:
         return
-    '''
+'''
     send_notification(task_info, 'Создание')
-    '''
+'''
