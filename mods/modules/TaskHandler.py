@@ -163,7 +163,7 @@ else:
                 'UF_CRM_TASK': uf_crm_task,
             }})
 '''
-    return task_info
+return task_info
 
 
 def task_handler(req, event=None):
