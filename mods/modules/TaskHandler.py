@@ -27,14 +27,7 @@ def fill_task_title(req, event):
             'select': ['*', 'UF_*']
         })
     print("ok")
-
-
-    task_info = send_bitrix_request('tasks.task.get', {
-    'taskId': task_id,
-    'select': ['*', 'UF_*']
-    })
-    print("ok")
-# 06 12 2023
+    # 06 12 2023
     deals_info = b.get_all('crm.deal.list', {
         'select': [
             'TITLE',
@@ -51,13 +44,22 @@ def fill_task_title(req, event):
             'ID': '2899'}})
     print(deals_info)
     print('ooo')
-
-
-    if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
+    '''
+    task_info = send_bitrix_request('tasks.task.get', {
+        'taskId': task_id,
+        'select': ['*', 'UF_*']
+    })
+    print("ok")
+    '''
+    if not task_info or 'task' not in task_info or not task_info['task']:  # если задача удалена или в иных ситуациях
         print("0")
         return
     task_info = task_info['task']
     # task_registry(task_info, event)
+    '''
+    if task_info['closedDate'] and task_info['ufAuto934103382947'] != '1':
+        send_notification(task_info, 'Завершение')
+    '''
 
     if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']:  # ufCrmTask - связь с сущностью (список)
         print("00")
@@ -81,7 +83,7 @@ def fill_task_title(req, event):
             print("13")
             return
 
-'''
+        '''
         contact_companies_info = send_bitrix_request('crm.company.list', {
            'select': ['UF_CRM_1660818061808'],     # Вес сделок
             'filter': {
@@ -89,57 +91,57 @@ def fill_task_title(req, event):
             }
 
         })
-'''
-  if contact_companies:
-       print(contact_companies)
-       print("666")
-    # for i in range(len(contact_companies_info)):
-    #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
-    #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
-    # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
-       best_value_company = contact_companies[0]
-       print(best_value_company)
-       print("667")
-       uf_crm_task = ['CO_' + str(best_value_company),
-                   'C_' + str(contact_crm)]  # нельзя дописать, можно толлько перезаписать обоими значениями заново
-       print("668")
-       company_id = best_value_company  # Это для тайтла
-        # print (uf_crm_task)
-       print(company_id)
+        '''
+        if contact_companies:
+            print(contact_companies)
+            print("666")
+            # for i in range(len(contact_companies_info)):
+            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
+            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
+            # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
+            best_value_company = contact_companies[0]
+            print(best_value_company)
+            print("667")
+            uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(
+                contact_crm)]  # нельзя дописать, можно толлько перезаписать обоими значениями заново
+            print("668")
+            company_id = best_value_company  # Это для тайтла
+            # print (uf_crm_task)
+            print(company_id)
 
-  else:
-       print("5")
-       company_id = company_crm[0][3:]
-       print(company_id)
-#   if event == 'ONTASKADD':
-#      check_similar_tasks_this_hour(task_info, company_id)
+    else:
+        print("5")
+        company_id = company_crm[0][3:]
+        print(company_id)
+    #   if event == 'ONTASKADD':
+    #      check_similar_tasks_this_hour(task_info, company_id)
 
-
-  print("6")
-# company_info = send_bitrix_request('crm.company.get', {
-#    'ID': company_id,
-# })
-   company_info = b.get_all(
+    print("6")
+    # company_info = send_bitrix_request('crm.company.get', {
+    #    'ID': company_id,
+    # })
+    company_info = b.get_all(
         'crm.company.get', {
             'ID': company_id,
         })
-   if company_info and company_info['TITLE'].strip() in task_info['title']:  # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
+    if company_info and company_info['TITLE'].strip() in task_info[
+        'title']:  # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
         print("7")
         return
 
-   if not uf_crm_task:  # если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
+    if not uf_crm_task:  # если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
         print("8")
-    # send_bitrix_request('tasks.task.update', {
-    #    'taskId': task_id,
-    #    'fields': {
-    #        'TITLE': f"{task_info['title']} {company_info['TITLE']}",
-    #    }})
+        # send_bitrix_request('tasks.task.update', {
+        #    'taskId': task_id,
+        #    'fields': {
+        #        'TITLE': f"{task_info['title']} {company_info['TITLE']}",
+        #    }})
         b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
             }})
-   else:
+    else:
         print("9")
         b.call('tasks.task.update', {
             'taskId': task_id,
@@ -148,12 +150,12 @@ def fill_task_title(req, event):
                 'UF_CRM_TASK': uf_crm_task,
             }})
 
-    # 25102023
+        # 25102023
         b.call('im.notify.system.add', {
             'USER_ID': 479,
             'MESSAGE': f'Элементы РТиУ заполнены'})
 
-'''
+        '''
         print ("9")
         send_bitrix_request('tasks.task.update', {
             'taskId': task_id,
@@ -161,8 +163,8 @@ def fill_task_title(req, event):
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
             }})
-'''
-return task_info
+        '''
+    return task_info
 
 
 def task_handler(req, event=None):
@@ -171,8 +173,6 @@ def task_handler(req, event=None):
         print("10")
     except:
         return
-
-
-'''
+    '''
     send_notification(task_info, 'Создание')
-'''
+    '''
