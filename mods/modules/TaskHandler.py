@@ -30,7 +30,7 @@ task_info = send_bitrix_request('tasks.task.get', {
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
-    print("ok")
+print("ok")
 #06 12 2023
 deals_info = b.get_all('crm.deal.list', {
         'select': [
@@ -61,27 +61,27 @@ task_info = task_info['task']
         send_notification(task_info, 'Завершение')
 '''
 
-    if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']: # ufCrmTask - связь с сущностью (список)
-        print("00")
-        return
+if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']: # ufCrmTask - связь с сущностью (список)
+    print("00")
+    return
 
-    company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
-    print(company_crm)
-    print ("4")
-    uf_crm_task = []
-    if not company_crm:
+company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
+print(company_crm)
+print ("4")
+uf_crm_task = []
+if not company_crm:
        
      
-        print("1")
-        contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
-        if not contact_crm:
-            return
-        contact_crm = contact_crm[0][2:]
-        print(contact_crm)
-        contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
-        if not contact_companies:
-            print ("13")
-            return
+    print("1")
+    contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
+    if not contact_crm:
+        return
+    contact_crm = contact_crm[0][2:]
+    print(contact_crm)
+    contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
+    if not contact_companies:
+        print ("13")
+        return
         
  '''
         contact_companies_info = send_bitrix_request('crm.company.list', {
@@ -92,21 +92,21 @@ task_info = task_info['task']
             
         })
 '''
-        if contact_companies:
-            print(contact_companies)
-            print("666")
+    if contact_companies:
+        print(contact_companies)
+        print("666")
            # for i in range(len(contact_companies_info)):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
            # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
-            best_value_company = contact_companies[0]
-            print (best_value_company)
-            print("667")
-            uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(contact_crm)] # нельзя дописать, можно толлько перезаписать обоими значениями заново
-            print("668")
-            company_id = best_value_company #Это для тайтла
+        best_value_company = contact_companies[0]
+        print (best_value_company)
+        print("667")
+        uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(contact_crm)] # нельзя дописать, можно толлько перезаписать обоими значениями заново
+        print("668")
+        company_id = best_value_company #Это для тайтла
             #print (uf_crm_task)
-            print (company_id)
+        print (company_id)
             
     else:
         print ("5")
