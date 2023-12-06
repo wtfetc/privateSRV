@@ -31,6 +31,23 @@ def fill_task_title(req, event):
         'select': ['*', 'UF_*']
     })
     print("ok")
+
+    #06 12 2023
+    deals_info = b.get_all('crm.deal.list', {
+        'select': [
+            'TITLE',
+            'TYPE_ID',
+            'ASSIGNED_BY_ID',
+            'BEGINDATE',
+            'CLOSEDATE',
+            'OPPORTUNITY',
+            'STAGE_ID',
+            'COMPANY_ID',
+            ],
+        'filter': {
+        'CATEGORY_ID': '4',
+        'ID': '2899'}})
+    print(deals_info)
     '''
     if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
         print("0")
