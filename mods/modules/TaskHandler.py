@@ -92,65 +92,65 @@ if not company_crm:
             
         })
 '''
-    if contact_companies:
-        print(contact_companies)
-        print("666")
+if contact_companies:
+    print(contact_companies)
+    print("666")
            # for i in range(len(contact_companies_info)):
            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
            # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
-        best_value_company = contact_companies[0]
-        print (best_value_company)
-        print("667")
-        uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(contact_crm)] # нельзя дописать, можно толлько перезаписать обоими значениями заново
-        print("668")
-        company_id = best_value_company #Это для тайтла
+    best_value_company = contact_companies[0]
+    print (best_value_company)
+    print("667")
+    uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(contact_crm)] # нельзя дописать, можно толлько перезаписать обоими значениями заново
+    print("668")
+    company_id = best_value_company #Это для тайтла
             #print (uf_crm_task)
-        print (company_id)
+    print (company_id)
             
-    else:
-        print ("5")
-        company_id = company_crm[0][3:]
-        print (company_id)
+else:
+    print ("5")
+    company_id = company_crm[0][3:]
+    print (company_id)
  #   if event == 'ONTASKADD':
   #      check_similar_tasks_this_hour(task_info, company_id)
 
 
-    print ("6")
+print ("6")
     #company_info = send_bitrix_request('crm.company.get', {
     #    'ID': company_id,
     #})
-    company_info = b.get_all(
-        'crm.company.get',{
-        'ID': company_id,
-    })
-    if company_info and company_info['TITLE'].strip() in task_info['title']: # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
-        print ("7")
-        return
+company_info = b.get_all(
+    'crm.company.get',{
+    'ID': company_id,
+})
+if company_info and company_info['TITLE'].strip() in task_info['title']: # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
+    print ("7")
+    return
 
-    if not uf_crm_task: #если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
-        print ("8")
+if not uf_crm_task: #если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
+    print ("8")
         #send_bitrix_request('tasks.task.update', {
         #    'taskId': task_id,
         #    'fields': {
         #        'TITLE': f"{task_info['title']} {company_info['TITLE']}",
         #    }})
-        b.call('tasks.task.update', {
-            'taskId': task_id,
-            'fields': {
-                'TITLE': f"{task_info['title']} {company_info['TITLE']}",
-            }})
-    else:
-        print ("9")
-        b.call('tasks.task.update', {
-            'taskId': task_id,
-            'fields': {
-                'TITLE': f"{task_info['title']} {company_info['TITLE']}",
-                'UF_CRM_TASK': uf_crm_task,
-            }})
+    b.call('tasks.task.update', {
+        'taskId': task_id,
+        'fields': {
+            'TITLE': f"{task_info['title']} {company_info['TITLE']}",
+        }})
+else:
+    print ("9")
+    b.call('tasks.task.update', {
+        'taskId': task_id,
+        'fields': {
+            'TITLE': f"{task_info['title']} {company_info['TITLE']}",
+            'UF_CRM_TASK': uf_crm_task,
+        }})
 
         # 25102023
-        b.call('im.notify.system.add', {
+    b.call('im.notify.system.add', {
         'USER_ID': 479,
         'MESSAGE': f'Элементы РТиУ заполнены'})
         
