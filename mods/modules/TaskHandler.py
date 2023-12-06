@@ -90,7 +90,7 @@ def fill_task_title(req, event):
 
         })
 '''
-   if contact_companies:
+  if contact_companies:
        print(contact_companies)
        print("666")
     # for i in range(len(contact_companies_info)):
@@ -107,7 +107,7 @@ def fill_task_title(req, event):
         # print (uf_crm_task)
        print(company_id)
 
-   else:
+  else:
        print("5")
        company_id = company_crm[0][3:]
        print(company_id)
@@ -115,7 +115,7 @@ def fill_task_title(req, event):
 #      check_similar_tasks_this_hour(task_info, company_id)
 
 
-   print("6")
+  print("6")
 # company_info = send_bitrix_request('crm.company.get', {
 #    'ID': company_id,
 # })
