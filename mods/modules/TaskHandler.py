@@ -48,6 +48,7 @@ def fill_task_title(req, event):
         'CATEGORY_ID': '4',
         'ID': '2899'}})
     print(deals_info)
+    print('ooo')
     '''
     if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
         print("0")
