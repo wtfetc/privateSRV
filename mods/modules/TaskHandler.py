@@ -25,13 +25,13 @@ def fill_task_title(req, event):
         'select': ['*', 'UF_*']
     })
     print("ok")
-    '''
+   '''
     task_info = send_bitrix_request('tasks.task.get', {
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
     print("ok")
-
+   '''
     #06 12 2023
     deals_info = b.get_all('crm.deal.list', {
         'select': [
