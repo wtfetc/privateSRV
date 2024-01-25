@@ -144,7 +144,9 @@ def fill_task_title(req, event):
     else:
         print("999")
         new_aud = []
+        print(new_aud)
         old_aud = task_info['auditors']
+        print(old_aud)
         new_aud = old_aud.append('491')
         print(new_aud)
         b.call('tasks.task.update', {
