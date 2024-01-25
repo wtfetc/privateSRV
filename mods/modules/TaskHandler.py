@@ -143,18 +143,18 @@ def fill_task_title(req, event):
             }})
     else:
         print("999")
-        new_aud = []
-        print(new_aud)
+        #new_aud = []
+        #print(new_aud)
         old_aud = task_info['auditors']
         print(old_aud)
-        new_aud = old_aud.append('491')
-        print(new_aud)
+        old_aud.append('491')
+        print(old_aud)
         b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
-                'AUDITORS': new_aud
+                'AUDITORS': old_aud
             }})
 
         # 25102023
