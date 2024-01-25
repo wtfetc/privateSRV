@@ -146,6 +146,7 @@ def fill_task_title(req, event):
         new_aud = []
         old_aud = task_info['auditors']
         new_aud = old_aud.append('491')
+        print(new_aud)
         b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
