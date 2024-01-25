@@ -142,12 +142,16 @@ def fill_task_title(req, event):
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
             }})
     else:
-        print("9")
+        print("999")
+        new_aud = []
+        old_aud = task_info['auditors']
+        new_aud.append('491')
         b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
+                'AUDITORS': new_aud
             }})
 
         # 25102023
@@ -158,10 +162,13 @@ def fill_task_title(req, event):
         '''
         print ("9")
         send_bitrix_request('tasks.task.update', {
+            new_aud = []
+            old_aud = task_info
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
                 'UF_CRM_TASK': uf_crm_task,
+                'AUDITORS'
             }})
         '''
     return task_info
