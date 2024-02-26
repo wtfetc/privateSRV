@@ -158,9 +158,8 @@ def fill_task_title(req, event):
             }})
 
         # 25102023
-        ids = [501, 479]
         b.call('im.notify.system.add', {
-            'USER_ID': ids,
+            'USER_ID': 479,
             'MESSAGE': f'Элементы РТиУ заполнены'})
 
         '''
