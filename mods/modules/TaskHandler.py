@@ -164,7 +164,7 @@ def fill_task_title(req, event):
             print(user_info)
             print(user_info[0]['UF_DEPARTMENT'])
 
-            if (user_info[0]['UF_DEPARTMENT'] in [[7]]) or (user_info[0]['UF_DEPARTMENT'] in [[287]]): # подставить айди отделов
+            if (user_info[0]['UF_DEPARTMENT'] == [7]) or (user_info[0]['UF_DEPARTMENT'] == [287]): # подставить айди отделов
                 print(user_info['UF_DEPARTMENT'])
 
         
