@@ -168,7 +168,7 @@ def fill_task_title(req, event):
                 print(user_info[0]['UF_DEPARTMENT'])
                 dep_info = b.get_all('department.get', {
                     'filter': {
-                        'ID': 'user_info[0]['UF_DEPARTMENT']'}
+                        'ID': user_info[0]['UF_DEPARTMENT']}
                 })
                 print(dep_info)
 
