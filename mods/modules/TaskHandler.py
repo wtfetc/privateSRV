@@ -166,7 +166,8 @@ def fill_task_title(req, event):
             # подставить айди отделов
             if (user_info[0]['UF_DEPARTMENT'] == [7]) or (user_info[0]['UF_DEPARTMENT'] == [99]):
                 print(user_info[0]['UF_DEPARTMENT'])
-                dep_id = user_info[0]['UF_DEPARTMENT'][-1:-1]
+                dep_id = user_info[0]['UF_DEPARTMENT']
+                dep_id = dep_id[-1:-1]
                 print(dep_id)
                 dep_info = b.get_all('department.get', {
                     'filter': {
