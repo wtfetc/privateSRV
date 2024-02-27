@@ -150,6 +150,7 @@ def fill_task_title(req, event):
         old_aud.append('491')
         print(old_aud)
         old_aud.append(company_info['ASSIGNED_BY_ID'][5:]) #добавляем ответственного за компанию в наблюдатели
+        print(old_aud)
         b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
