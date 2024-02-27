@@ -155,7 +155,9 @@ def fill_task_title(req, event):
             old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
             print(old_aud)
             
+        print(old_aud)
         b.call('tasks.task.update', {
+            print(old_aud)
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}",
