@@ -27,6 +27,11 @@ def fill_task_title(req, event):
             'select': ['*', 'UF_*']
         })
     print("ok")
+    if task_info['GROUP_ID'] in ['119']:
+            print(task_info['GROUP_ID'])
+            # old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
+            # print(old_aud)
+        
     # 06 12 2023
     deals_info = b.get_all('crm.deal.list', {
         'select': [
