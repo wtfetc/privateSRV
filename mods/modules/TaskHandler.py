@@ -163,7 +163,7 @@ def fill_task_title(req, event):
             })
             print(user_info)
 
-            if user_info['UF_DEPARTMENT'] == [[99]] or user_info['UF_DEPARTMENT'] == [[287]]:
+            if user_info['UF_DEPARTMENT'] == [[7]] or user_info['UF_DEPARTMENT'] == [[287]]:
                 print(user_info['UF_DEPARTMENT'])
 
         
