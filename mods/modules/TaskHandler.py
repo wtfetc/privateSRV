@@ -162,14 +162,14 @@ def fill_task_title(req, event):
                 'ID': company_info['ASSIGNED_BY_ID'],
             })
             print(user_info)
-            print(user_info[0]['UF_DEPARTMENT'])
             
             # подставить айди отделов
             if (user_info[0]['UF_DEPARTMENT'] == [7]) or (user_info[0]['UF_DEPARTMENT'] == [99]):
-                print("11223344")
+                print(user_info[0]['UF_DEPARTMENT'])
                 dep_info = b.get_all('department.get', {
                     'filter': {
-                        'ID': user_info[0]['UF_DEPARTMENT']}})
+                        'ID': 'user_info[0]['UF_DEPARTMENT']'}
+                })
                 print(dep_info)
 
         
