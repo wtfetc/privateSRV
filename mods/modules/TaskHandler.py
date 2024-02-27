@@ -151,16 +151,22 @@ def fill_task_title(req, event):
         old_aud.append('491')
         print(old_aud)
 
+        # если это определенная группа
         if task_info['groupId'] in ['119']:
             print(task_info['groupId'])
             old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
             print(old_aud)
             
-        user_info = b.get_all(
-        'user.get', {
-            'ID': company_info['ASSIGNED_BY_ID'],
-        })
-        print(user_info)
+            user_info = b.get_all(
+            'user.get', {
+                'ID': company_info['ASSIGNED_BY_ID'],
+            })
+            print(user_info)
+
+            if user_info['UF_DEPARTMENT'] == [[99]] or user_info['UF_DEPARTMENT'] == [[287]]:
+                print(user_info['UF_DEPARTMENT'])
+
+        
         
         print(old_aud)
         b.call('tasks.task.update', {
