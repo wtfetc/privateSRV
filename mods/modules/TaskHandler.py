@@ -162,8 +162,9 @@ def fill_task_title(req, event):
                 'ID': company_info['ASSIGNED_BY_ID'],
             })
             print(user_info)
+            print(user_info['UF_DEPARTMENT'])
 
-            if (user_info['UF_DEPARTMENT'] in [[7]]) or (user_info['UF_DEPARTMENT'] in [[287]]):
+            if (user_info['UF_DEPARTMENT'] in [7]) or (user_info['UF_DEPARTMENT'] in [287]):
                 print(user_info['UF_DEPARTMENT'])
 
         
