@@ -156,6 +156,12 @@ def fill_task_title(req, event):
             old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
             print(old_aud)
             
+        user_info = b.get_all(
+        'user.get', {
+            'ID': company_info['ASSIGNED_BY_ID'],
+        })
+        print(user_info)
+        
         print(old_aud)
         b.call('tasks.task.update', {
             'taskId': task_id,
