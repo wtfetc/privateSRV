@@ -28,6 +28,7 @@ def fill_task_title(req, event):
         })
     print("ok")
     print(task_info)
+    task_info = task_info['task']
     if task_info['groupId'] in ['119']:
         print(task_info['groupId'])
         # old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
