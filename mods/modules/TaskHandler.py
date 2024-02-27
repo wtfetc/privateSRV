@@ -165,17 +165,12 @@ def fill_task_title(req, event):
             print(user_info[0]['UF_DEPARTMENT'])
             
             # подставить айди отделов
-            if (user_info[0]['UF_DEPARTMENT'] in ['[7]']):
-                print("11")
-
-            if (user_info[0]['UF_DEPARTMENT'] == ['[7]']):
-                print("1122")
-
-            if (user_info[0]['UF_DEPARTMENT'] in [[7]]):
-                print("112233")
-
-            if (user_info[0]['UF_DEPARTMENT'] == [7]):
+            if (user_info[0]['UF_DEPARTMENT'] == [7]) or (user_info[0]['UF_DEPARTMENT'] == [99]):
                 print("11223344")
+                dep_info = b.get_all('department.get', {
+                    'filter': {
+                        'ID': user_info[0]['UF_DEPARTMENT']}})
+                print(dep_info)
 
         
         
