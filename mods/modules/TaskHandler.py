@@ -26,7 +26,6 @@ def fill_task_title(req, event):
             'taskId': task_id,
             'select': ['*', 'UF_*']
         })
-    print("ok")
             
     # 06 12 2023
     deals_info = b.get_all('crm.deal.list', {
@@ -43,84 +42,44 @@ def fill_task_title(req, event):
         'filter': {
             'CATEGORY_ID': '4',
             'ID': '2899'}})
-    print(deals_info)
-    print('ooo')
-    '''
-    task_info = send_bitrix_request('tasks.task.get', {
-        'taskId': task_id,
-        'select': ['*', 'UF_*']
-    })
-    print("ok")
-    '''
+
     if not task_info or 'task' not in task_info or not task_info['task']:  # если задача удалена или в иных ситуациях
         print("0")
         return
     task_info = task_info['task']
-    # task_registry(task_info, event)
-    '''
-    if task_info['closedDate'] and task_info['ufAuto934103382947'] != '1':
-        send_notification(task_info, 'Завершение')
-    '''
-
+    
     if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']:  # ufCrmTask - связь с сущностью (список)
         print("00")
         return
 
     company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
-    print(company_crm)
-    print("4")
     uf_crm_task = []
+    
     if not company_crm:
-
         print("1")
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
+        
         if not contact_crm:
             return
+            
         contact_crm = contact_crm[0][2:]
-        print(contact_crm)
         contact_companies = list(
             map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
+        
         if not contact_companies:
             print("13")
             return
 
-        '''
-        contact_companies_info = send_bitrix_request('crm.company.list', {
-           'select': ['UF_CRM_1660818061808'],     # Вес сделок
-            'filter': {
-                'ID': contact_companies,
-            }
-
-        })
-        '''
-        if contact_companies:
-            print(contact_companies)
-            print("666")
-            # for i in range(len(contact_companies_info)):
-            #     if not contact_companies_info[i]['UF_CRM_1660818061808']:
-            #         contact_companies_info[i]['UF_CRM_1660818061808'] = 0
-            # best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1660818061808'])))[-1]['ID'] #последний элемент в общем списке - с макс value
+            if contact_companies:
             best_value_company = contact_companies[0]
-            print(best_value_company)
-            print("667")
             uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(
                 contact_crm)]  # нельзя дописать, можно толлько перезаписать обоими значениями заново
-            print("668")
             company_id = best_value_company  # Это для тайтла
-            # print (uf_crm_task)
-            print(company_id)
 
     else:
         print("5")
         company_id = company_crm[0][3:]
-        print(company_id)
-    #   if event == 'ONTASKADD':
-    #      check_similar_tasks_this_hour(task_info, company_id)
-
-    print("6")
-    # company_info = send_bitrix_request('crm.company.get', {
-    #    'ID': company_id,
-    # })
+    
     company_info = b.get_all(
         'crm.company.get', {
             'ID': company_id,
@@ -131,12 +90,7 @@ def fill_task_title(req, event):
         return
 
     if not uf_crm_task:  # если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
-        print("8")
-        # send_bitrix_request('tasks.task.update', {
-        #    'taskId': task_id,
-        #    'fields': {
-        #        'TITLE': f"{task_info['title']} {company_info['TITLE']}",
-        #    }})
+        
         b.call('tasks.task.update', {
             'taskId': task_id,
             'fields': {
@@ -144,52 +98,45 @@ def fill_task_title(req, event):
             }})
     else:
         print("999")
-        #new_aud = []
-        #print(new_aud)
         old_aud = task_info['auditors']
         old_aud.append('491')
-        print(old_aud)
 
         
-        if task_info['groupId'] in ['119']: # если это определенная группа
+    if task_info['groupId'] in ['119']: # если это определенная группа
 
-            # если ответственный за компанию это НЕ постановщик или ответственный
-            if (task_info['responsibleId'] not in company_info['ASSIGNED_BY_ID']) and (task_info['createdBy'] not in company_info['ASSIGNED_BY_ID']):
-                old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
-                print(old_aud)
+        # если ответственный за компанию это НЕ постановщик или ответственный
+        if (task_info['responsibleId'] not in company_info['ASSIGNED_BY_ID']) and (task_info['createdBy'] not in company_info['ASSIGNED_BY_ID']):
+            old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
 
-                b.call('im.notify.system.add', { # пушим ответственному за компанию
-                    'USER_ID': company_info['ASSIGNED_BY_ID'],
-                    'MESSAGE': f'Для вашего клиента {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
+            b.call('im.notify.system.add', { # пушим ответственному за компанию
+                'USER_ID': company_info['ASSIGNED_BY_ID'],
+                'MESSAGE': f'Для вашего клиента {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
+        
+        user_info = b.get_all( # читаем отделы ответственного
+            'user.get', {
+                'ID': company_info['ASSIGNED_BY_ID'],
+            })
+
+        # подставить айди ГО3
+        if (518 in user_info[0]['UF_DEPARTMENT'] ): # если это ГО3
+            dep_info = b.get_all('department.get', { # читаем рука отдела
+                'ID': '518'})
+            old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
             
-            user_info = b.get_all( # читаем отделы ответственного
-                'user.get', {
-                    'ID': company_info['ASSIGNED_BY_ID'],
-                })
-            print(user_info[0]['UF_DEPARTMENT'])
-
-            # подставить айди ГО3
-            if (518 in user_info[0]['UF_DEPARTMENT'] ): # если это ГО3
-                dep_info = b.get_all('department.get', { # читаем рука отдела
-                    'ID': '518'})
-                print(dep_info[0]['UF_HEAD'])
-                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
-                
-                b.call('im.notify.system.add', { # пушим руку
-                    'USER_ID': '501', # подставить dep_info[0]['UF_HEAD']
-                    'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
+            b.call('im.notify.system.add', { # пушим руку
+                'USER_ID': '501', # подставить dep_info[0]['UF_HEAD']
+                'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
 
 
-            # подставить айди ГО4
-            if (99 in user_info[0]['UF_DEPARTMENT']): # если это ГО4
-                dep_info = b.get_all('department.get', { # читаем рука отдела
-                    'ID': '99'})
-                print(dep_info[0]['UF_HEAD'])
-                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
+        # подставить айди ГО4
+        if (99 in user_info[0]['UF_DEPARTMENT']): # если это ГО4
+            dep_info = b.get_all('department.get', { # читаем рука отдела
+                'ID': '99'})
+             old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
-                b.call('im.notify.system.add', { # пушим руку
-                    'USER_ID': dep_info[0]['UF_HEAD'],
-                    'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
+            b.call('im.notify.system.add', { # пушим руку
+                'USER_ID': dep_info[0]['UF_HEAD'],
+                'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
           
         
         print(old_aud)
@@ -206,18 +153,6 @@ def fill_task_title(req, event):
             'USER_ID': 479,
             'MESSAGE': f'Элементы РТиУ заполнены'})
 
-        '''
-        print ("9")
-        send_bitrix_request('tasks.task.update', {
-            new_aud = []
-            old_aud = task_info
-            'taskId': task_id,
-            'fields': {
-                'TITLE': f"{task_info['title']} {company_info['TITLE']}",
-                'UF_CRM_TASK': uf_crm_task,
-                'AUDITORS'
-            }})
-        '''
     return task_info
 
 
@@ -227,6 +162,3 @@ def task_handler(req, event=None):
         print("10")
     except:
         return
-    '''
-    send_notification(task_info, 'Создание')
-    '''
