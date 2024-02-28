@@ -172,19 +172,21 @@ def fill_task_title(req, event):
                 print(dep_info[0]['UF_HEAD'])
                 old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
+                b.call('im.notify.system.add', { # пушим руку
+                    'USER_ID': '501', # подставить dep_info[0]['UF_HEAD']
+                    'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
 
-            '''
+
             # подставить айди ГО4
-            if (518 in user_info[0]['UF_DEPARTMENT']) or (99 in user_info[0]['UF_DEPARTMENT']):
-                print(user_info[0]['UF_DEPARTMENT'])
-                dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
-                print(dep_id)
-                dep_info = b.get_all('department.get', {
-                    'filter': {
-                        'ID': user_info[0]['UF_DEPARTMENT']}
-                })
-                print(dep_info)
-'''
+            if (99 in user_info[0]['UF_DEPARTMENT']): # если это ГО4
+                dep_info = b.get_all('department.get', { # читаем рука отдела
+                    'ID': '99'})
+                print(dep_info[0]['UF_HEAD'])
+                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
+
+                b.call('im.notify.system.add', { # пушим руку
+                    'USER_ID': dep_info[0]['UF_HEAD'],
+                    'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
           
         
         print(old_aud)
