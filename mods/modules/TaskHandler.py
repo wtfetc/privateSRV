@@ -71,10 +71,9 @@ def fill_task_title(req, event):
             return
 
             if contact_companies:
-            best_value_company = contact_companies[0]
-            uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(
-                contact_crm)]  # нельзя дописать, можно толлько перезаписать обоими значениями заново
-            company_id = best_value_company  # Это для тайтла
+                best_value_company = contact_companies[0]
+                uf_crm_task = ['CO_' + str(best_value_company), 'C_' + str(contact_crm)]  # нельзя дописать, можно толлько перезаписать обоими значениями заново
+                company_id = best_value_company  # Это для тайтла
 
     else:
         print("5")
