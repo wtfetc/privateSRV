@@ -176,7 +176,7 @@ def fill_task_title(req, event):
                 old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
              b.call('im.notify.system.add', { # пушим руку
-                'USER_ID': '501', # подставить dep_info[0]['UF_HEAD']
+                 'USER_ID': '501', # подставить dep_info[0]['UF_HEAD']
                  'MESSAGE': f'Для клиента вашего сотрудника {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
 
 
