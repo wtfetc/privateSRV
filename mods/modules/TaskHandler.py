@@ -147,13 +147,11 @@ def fill_task_title(req, event):
         #new_aud = []
         #print(new_aud)
         old_aud = task_info['auditors']
-        print(old_aud)
         old_aud.append('491')
         print(old_aud)
 
-        # если это определенная группа
-        if task_info['groupId'] in ['119']:
-            print(task_info['groupId'])
+        
+        if task_info['groupId'] in ['119']: # если это определенная группа
             old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
             print(old_aud)
 
@@ -161,15 +159,15 @@ def fill_task_title(req, event):
                 'USER_ID': company_info['ASSIGNED_BY_ID'],
                 'MESSAGE': f'Для вашего клиента {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
             
-            user_info = b.get_all(
-            'user.get', {
-                'ID': company_info['ASSIGNED_BY_ID'],
-            })
-            print(user_info)
+            user_info = b.get_all( # читаем отедлы ответственного
+                'user.get', {
+                    'ID': company_info['ASSIGNED_BY_ID'],
+                })
+            print(user_info[0]['UF_DEPARTMENT'])
 
             # подставить айди ГО3
-            if (518 in user_info[0]['UF_DEPARTMENT']):
-                dep_info = b.get_all('department.get', {
+            if (518 in user_info[0]['UF_DEPARTMENT']): # если это ГО3
+                dep_info = b.get_all('department.get', { # читаем рука отдела
                     'ID': '518'})
                 print(dep_info[0]['UF_HEAD'])
                 old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
