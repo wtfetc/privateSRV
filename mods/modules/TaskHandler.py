@@ -168,7 +168,7 @@ def fill_task_title(req, event):
             print(user_info)
             
             # подставить айди отделов
-            if (user_info[0]['UF_DEPARTMENT'] == [518]) or (user_info[0]['UF_DEPARTMENT'] == [99]):
+            if ([518] in user_info[0]['UF_DEPARTMENT']) or ([99] in user_info[0]['UF_DEPARTMENT']):
                 print(user_info[0]['UF_DEPARTMENT'])
                 dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
                 print(dep_id)
