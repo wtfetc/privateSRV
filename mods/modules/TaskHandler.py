@@ -166,8 +166,19 @@ def fill_task_title(req, event):
                 'ID': company_info['ASSIGNED_BY_ID'],
             })
             print(user_info)
-            
-            # подставить айди отделов
+
+            # подставить айди ГО3
+            if (518 in user_info[0]['UF_DEPARTMENT']):
+                dep_info = b.get_all('department.get', {
+                    'filter': {
+                        'ID': '518'}
+                })
+                print(dep_info)
+                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
+                print(old_aud)
+
+            '''
+            # подставить айди ГО4
             if (518 in user_info[0]['UF_DEPARTMENT']) or (99 in user_info[0]['UF_DEPARTMENT']):
                 print(user_info[0]['UF_DEPARTMENT'])
                 dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
@@ -177,19 +188,8 @@ def fill_task_title(req, event):
                         'ID': user_info[0]['UF_DEPARTMENT']}
                 })
                 print(dep_info)
-
-            # подставить айди отделов
-                if (518 in user_info[0]['UF_DEPARTMENT']) or (99 in user_info[0]['UF_DEPARTMENT']):
-                    print("22222")
-                    print(user_info[0]['UF_DEPARTMENT'])
-                    dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
-                    print(dep_id)
-                    dep_info = b.get_all('department.get', {
-                        'filter': {
-                            'ID': user_info[0]['UF_DEPARTMENT']}
-                    })
-                    print(dep_info)
-            
+'''
+          
         
         print(old_aud)
         b.call('tasks.task.update', {
