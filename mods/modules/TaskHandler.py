@@ -166,11 +166,12 @@ def fill_task_title(req, event):
             print(user_info[0]['UF_DEPARTMENT'])
 
             # подставить айди ГО3
-            if (518 in user_info[0]['UF_DEPARTMENT']): # если это ГО3
-                dep_info = b.get_all('department.get', { # читаем рука отдела
-                    'ID': '518'})
-                print(dep_info[0]['UF_HEAD'])
-                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
+            if (518 in user_info[0]['UF_DEPARTMENT'] ): # если это ГО3
+                if (task_info['responsibleId'] not in user_info[0]['UF_DEPARTMENT']) and (task_info['createdBy'] not in user_info[0]['UF_DEPARTMENT']):
+                    dep_info = b.get_all('department.get', { # читаем рука отдела
+                        'ID': '518'})
+                    print(dep_info[0]['UF_HEAD'])
+                    old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
                 b.call('im.notify.system.add', { # пушим руку
                     'USER_ID': '501', # подставить dep_info[0]['UF_HEAD']
@@ -179,10 +180,11 @@ def fill_task_title(req, event):
 
             # подставить айди ГО4
             if (99 in user_info[0]['UF_DEPARTMENT']): # если это ГО4
-                dep_info = b.get_all('department.get', { # читаем рука отдела
-                    'ID': '99'})
-                print(dep_info[0]['UF_HEAD'])
-                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
+                if (task_info['responsibleId'] not in user_info[0]['UF_DEPARTMENT']) and (task_info['createdBy'] not in user_info[0]['UF_DEPARTMENT']):
+                    dep_info = b.get_all('department.get', { # читаем рука отдела
+                        'ID': '99'})
+                    print(dep_info[0]['UF_HEAD'])
+                    old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
                 b.call('im.notify.system.add', { # пушим руку
                     'USER_ID': dep_info[0]['UF_HEAD'],
