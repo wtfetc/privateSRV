@@ -171,10 +171,8 @@ def fill_task_title(req, event):
             if (518 in user_info[0]['UF_DEPARTMENT']):
                 dep_info = b.get_all('department.get', {
                     'ID': '518'})
-                print(dep_info)
-                print(dep_info['UF_HEAD'])
-                old_aud.append(dep_info['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
-                print(old_aud)
+                print(dep_info[0]['UF_HEAD'])
+                old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
 
             '''
