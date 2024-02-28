@@ -171,7 +171,7 @@ def fill_task_title(req, event):
             if (518 in user_info[0]['UF_DEPARTMENT']):
                 dep_info = b.get_all('department.get', {
                     'filter': {
-                        'ID': ['518']}
+                        ['ID': '518']}
                 })
                 print(dep_info)
                 print(dep_info['UF_HEAD'])
