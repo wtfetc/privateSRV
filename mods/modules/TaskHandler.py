@@ -149,13 +149,12 @@ def fill_task_title(req, event):
         old_aud = task_info['auditors']
         old_aud.append('491')
         print(old_aud)
-        print(user_info)
 
         
         if task_info['groupId'] in ['119']: # если это определенная группа
 
             # если ответственный за компанию это НЕ постановщик или ответственный
-            if (task_info['responsibleId'] not in user_info['ID']) or (task_info['createdBy'] not in user_info['ID']):
+            if (task_info['responsibleId'] not in company_info['ASSIGNED_BY_ID']) or (task_info['createdBy'] not in company_info['ASSIGNED_BY_ID']):
                 old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
                 print(old_aud)
 
