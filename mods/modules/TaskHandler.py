@@ -156,6 +156,10 @@ def fill_task_title(req, event):
             print(task_info['groupId'])
             old_aud.append(company_info['ASSIGNED_BY_ID']) # добавляем ответственного за компанию в наблюдатели
             print(old_aud)
+
+            b.call('im.notify.system.add', { # пушим ответственному за компанию
+                'USER_ID': company_info['ASSIGNED_BY_ID'],
+                'MESSAGE': f'Для вашего клиента {company_info["TITLE"]} была поставлена задача внешнему исполнителю: https://vc1c.bitrix24.ru/workgroups/group/119/tasks/task/view/{task_info["id"]}/'})
             
             user_info = b.get_all(
             'user.get', {
@@ -164,7 +168,7 @@ def fill_task_title(req, event):
             print(user_info)
             
             # подставить айди отделов
-            if (user_info[0]['UF_DEPARTMENT'] == [7]) or (user_info[0]['UF_DEPARTMENT'] == [99]):
+            if (user_info[0]['UF_DEPARTMENT'] == [518]) or (user_info[0]['UF_DEPARTMENT'] == [99]):
                 print(user_info[0]['UF_DEPARTMENT'])
                 dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
                 print(dep_id)
