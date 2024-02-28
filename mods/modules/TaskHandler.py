@@ -168,7 +168,7 @@ def fill_task_title(req, event):
             print(user_info)
             
             # подставить айди отделов
-            if ([518] in user_info[0]['UF_DEPARTMENT']) or ([99] in user_info[0]['UF_DEPARTMENT']):
+            if (518 in user_info[0]['UF_DEPARTMENT']) or (99 in user_info[0]['UF_DEPARTMENT']):
                 print(user_info[0]['UF_DEPARTMENT'])
                 dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
                 print(dep_id)
@@ -178,7 +178,18 @@ def fill_task_title(req, event):
                 })
                 print(dep_info)
 
-        
+            # подставить айди отделов
+                if (518 in user_info[0]['UF_DEPARTMENT']) or (99 in user_info[0]['UF_DEPARTMENT']):
+                    print("22222")
+                    print(user_info[0]['UF_DEPARTMENT'])
+                    dep_id = f"{user_info[0]['UF_DEPARTMENT']}"[1:-1]
+                    print(dep_id)
+                    dep_info = b.get_all('department.get', {
+                        'filter': {
+                            'ID': user_info[0]['UF_DEPARTMENT']}
+                    })
+                    print(dep_info)
+            
         
         print(old_aud)
         b.call('tasks.task.update', {
