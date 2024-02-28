@@ -173,6 +173,7 @@ def fill_task_title(req, event):
                     'filter': {
                         'ID': '518'}
                 })
+                print(dep_info)
                 print(dep_info['UF_HEAD'])
                 old_aud.append(dep_info['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
                 print(old_aud)
