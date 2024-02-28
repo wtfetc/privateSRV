@@ -131,7 +131,7 @@ def fill_task_title(req, event):
         if (99 in user_info[0]['UF_DEPARTMENT']): # если это ГО4
             dep_info = b.get_all('department.get', { # читаем рука отдела
                 'ID': '99'})
-             old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
+            old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
 
             b.call('im.notify.system.add', { # пушим руку
                 'USER_ID': dep_info[0]['UF_HEAD'],
