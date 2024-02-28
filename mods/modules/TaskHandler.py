@@ -182,7 +182,7 @@ def fill_task_title(req, event):
 
             # подставить айди ГО4
             if (99 in user_info[0]['UF_DEPARTMENT']): # если это ГО4
-               dep_info = b.get_all('department.get', { # читаем рука отдела
+                dep_info = b.get_all('department.get', { # читаем рука отдела
                     'ID': '99'})
                 print(dep_info[0]['UF_HEAD'])
                 old_aud.append(dep_info[0]['UF_HEAD']) # добавляем рука сотрудника в наблюдатели
