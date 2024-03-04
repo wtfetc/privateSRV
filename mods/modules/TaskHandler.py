@@ -47,11 +47,13 @@ def fill_task_title(req, event):
             print("4")
             main_company = main_company[0][3:]
             company_info = b.get_all('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
+            print(company_info)
+            print(company_info['COMPANY_TYPE'])
             if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании != Закончился ИТС
                 company_id = main_company        #если иначе то куда идем???
                 print("5")
                 
-        if not main_company:
+        if not main_company or company_info['COMPANY_TYPE'] in ['1']:
             print("6")
             contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
             if not contact_companies: # если нет привязанных компаний
