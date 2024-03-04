@@ -31,7 +31,7 @@ def check_similar_tasks_this_hour(task_info, company_id):
             '>=CREATED_DATE': start_time_filter,
             '<CREATED_DATE': end_time_filter,
             'GROUP_ID': task_info['groupId'],
-            'UF_CRM_TASK': ['CO_' + company_id, 'C_4137']
+            #'UF_CRM_TASK': ['CO_' + company_id, 'C_4137']
         }
     })
     print(similar_tasks)
