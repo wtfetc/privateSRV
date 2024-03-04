@@ -59,11 +59,12 @@ def fill_task_title(req, event):
             contact_companies_info = b.get_all('crm.company.list', { # читаем вес сделок всех компаний, привязанных к контакту
                 'select': ['COMPANY_TYPE', 'UF_CRM_1709217643'],     # Вес сделок
                 'filter': {
-                    'ID': contact_companies
+                    'ID': contact_companies,
+                    #'!COMPANY_TYPE': '1',
                 }
             })
             print(contact_companies_info)
-            active_companies = list(filter(lambda x: contact_companies_info['COMPANY_TYPE'] != x['1'], contact_companies_info['UF_CRM_1709217643']))
+            active_companies = list(filter(lambda x: x['COMPANY_TYPE'] != ['1'], contact_companies_info))
             print(active_companies)
             if contact_companies_info:
                 for i in range(len(contact_companies_info)):
