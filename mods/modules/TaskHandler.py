@@ -17,6 +17,7 @@ chat_id = "-4033252882"
 
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
+    print("000")
     task_info = send_bitrix_request('tasks.task.get', { # читаем инфо о задаче
         'taskId': task_id,
         'select': ['*', 'UF_*']
