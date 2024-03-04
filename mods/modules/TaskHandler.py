@@ -2,12 +2,10 @@ from datetime import datetime, timedelta
 from time import time, sleep
 from random import randint
 import json
-import base64
-import requests
 
-# from web_app_4dk.tools import send_bitrix_request
-from mods.tools import send_bitrix_request
-from fast_bitrix24 import Bitrix
+from web_app_4dk.tools import send_bitrix_request
+from web_app_4dk.chat_bot.SendMessage import bot_send_message
+
 
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
@@ -15,20 +13,24 @@ def fill_task_title(req, event):
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
-    if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
+    if not task_info or 'task' not in task_info or not task_info['task']:
+        print('0') # если задача удалена или в иных ситуациях
         return
     
     task_info = task_info['task']
   
 
-    if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']: # ufCrmTask - связь с сущностью (список)
+    if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']:
+        print('1') # ufCrmTask - связь с сущностью (список)
         return
 
     company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
     uf_crm_task = []
     if not company_crm:
+        print('2')
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
         if not contact_crm:
+            print('3')
             return
         
         # если к задаче прикреплен только контакт
@@ -37,6 +39,7 @@ def fill_task_title(req, event):
         print(main_company)
 
         if main_company: # если основная компания заполнена, то читаем у неё поле Тип компании
+            print('4')
             main_company = main_company[0][3:]
             company_info = send_bitrix_request('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
             if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании = Закончился ИТС
@@ -70,6 +73,7 @@ def fill_task_title(req, event):
     company_info = send_bitrix_request('crm.company.get', { # читаем инфо о найденной компании
         'ID': company_id,
     })
+
     if company_info and company_info['TITLE'].strip() in task_info['title']: # strip() - очищает от пробелов по краям, если есть название компании в тайтле, то возрват
         return
 
