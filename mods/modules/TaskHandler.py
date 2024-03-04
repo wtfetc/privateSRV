@@ -34,6 +34,7 @@ def check_similar_tasks_this_hour(task_info, company_id):
             'UF_CRM_TASK': ['CO_' + company_id]
         }
     })
+    print(similar_tasks)
     if similar_tasks:
         similar_tasks = similar_tasks['tasks']
     else:
