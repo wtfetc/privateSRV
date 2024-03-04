@@ -57,10 +57,9 @@ def fill_task_title(req, event):
             if not contact_companies: # если нет привязанных компаний
                 return
             contact_companies_info = b.get_all('crm.company.list', { # читаем вес сделок всех компаний, привязанных к контакту
-                'select': [['COMPANY_TYPE'], ['UF_CRM_1709217643']],     # Вес сделок
+                'select': ['COMPANY_TYPE', 'UF_CRM_1709217643'],     # Вес сделок
                 'filter': {
-                    'ID': contact_companies,
-                    #'!COMPANY_TYPE': '1',
+                    'ID': contact_companies
                 }
             })
             print(contact_companies_info)
