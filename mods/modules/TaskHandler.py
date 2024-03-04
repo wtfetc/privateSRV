@@ -16,8 +16,8 @@ TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
 chat_id = "-4033252882"
 
 def check_similar_tasks_this_hour(task_info, company_id):
-    users_id = [['createdBy'], '501']
-    if ['groupId'] not in ['119', '97']:
+    users_id = [task_info['createdBy'], '501']
+    if task_info['groupId'] not in ['119', '97']:
         return
     group_names = {
         '119': 'Тестовая',
@@ -27,10 +27,10 @@ def check_similar_tasks_this_hour(task_info, company_id):
     start_time_filter = (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S') #вычитаем из тек даты 1 час
     similar_tasks = b.get_all('tasks.task.list', {
         'filter': {
-            '!ID': ['id'],
+            '!ID': task_info['id'],
             '>=CREATED_DATE': start_time_filter,
             '<CREATED_DATE': end_time_filter,
-            'GROUP_ID': ['groupId'],
+            'GROUP_ID': task_info['groupId'],
             'UF_CRM_TASK': ['CO_' + company_id]
         }
     })
