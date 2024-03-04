@@ -15,6 +15,39 @@ b = Bitrix(decip)
 TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
 chat_id = "-4033252882"
 
+def check_similar_tasks_this_hour(task_info, company_id):
+    users_id = [['createdBy'], '501']
+    if ['groupId'] not in ['119', '97']:
+        return
+    group_names = {
+        '119': 'Тестовая',
+        '97': 'ЛК',
+    }
+    end_time_filter = datetime.now().strftime('%Y-%m-%d %H:%M:%S') #форматируем дату в строку
+    start_time_filter = (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S') #вычитаем из тек даты 1 час
+    similar_tasks = b.get_all('tasks.task.list', {
+        'filter': {
+            '!ID': ['id'],
+            '>=CREATED_DATE': start_time_filter,
+            '<CREATED_DATE': end_time_filter,
+            'GROUP_ID': ['groupId'],
+            'UF_CRM_TASK': ['CO_' + company_id]
+        }
+    })
+    if similar_tasks:
+        similar_tasks = similar_tasks['tasks']
+    else:
+        return
+    similar_tasks_url = '\n'.join(tuple(map(lambda x: f"https://vc1c.bitrix24.ru/workgroups/group/{['groupId']}/tasks/task/view/{x['id']}/", similar_tasks)))
+    if similar_tasks:
+        for user_id in users_id:
+            b.get_all('im.notify.system.add', {
+                'USER_ID': user_id,
+                'MESSAGE': f"Для текущей компании в группе {group_names[['groupId']]} уже были поставлены задачи за прошедший час\n"
+                           f"Новая задача: https://vc1c.bitrix24.ru/workgroups/group/{['groupId']}/tasks/task/view/{['id']}/\n\n"
+                           f"Поставленные ранее:\n {similar_tasks_url}"
+            })
+
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
     task_info = b.get_all('tasks.task.get', { # читаем инфо о задаче
@@ -83,6 +116,10 @@ def fill_task_title(req, event):
         company_id = company_crm[0][3:]
 
 
+    if event == 'ONTASKADD':
+        check_similar_tasks_this_hour(task_info, company_id)
+        
+    
     company_info = b.get_all('crm.company.get', { # читаем инфо о найденной компании
         'ID': company_id,
     })
