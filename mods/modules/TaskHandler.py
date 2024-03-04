@@ -27,6 +27,8 @@ def check_similar_tasks_this_hour(task_info, company_id):
     start_time_filter = (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S') #вычитаем из тек даты 1 час
     print(end_time_filter)
     print(start_time_filter)
+    date_task = b.get_all('tasks.task.list', {'filter': {'ID': '42997'}})
+    print(date_task)
     similar_tasks = b.get_all('tasks.task.list', {
         'filter': {
             '!ID': task_info['id'],
