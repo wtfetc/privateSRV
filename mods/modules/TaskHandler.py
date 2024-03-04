@@ -31,7 +31,7 @@ def check_similar_tasks_this_hour(task_info, company_id):
             '>=CREATED_DATE': start_time_filter,
             '<CREATED_DATE': end_time_filter,
             'GROUP_ID': task_info['groupId'],
-            'UF_CRM_TASK': ['CO_' + company_id]
+            'UF_CRM_TASK': ['CO_' + company_id, 'C_4137']
         }
     })
     print(similar_tasks)
@@ -44,8 +44,8 @@ def check_similar_tasks_this_hour(task_info, company_id):
         for user_id in users_id:
             b.get_all('im.notify.system.add', {
                 'USER_ID': user_id,
-                'MESSAGE': f"Для текущей компании в группе {group_names[['groupId']]} уже были поставлены задачи за прошедший час\n"
-                           f"Новая задача: https://vc1c.bitrix24.ru/workgroups/group/{['groupId']}/tasks/task/view/{['id']}/\n\n"
+                'MESSAGE': f"Для текущей компании в группе {group_names[task_info['groupId']]} уже были поставлены задачи за прошедший час\n"
+                           f"Новая задача: https://vc1c.bitrix24.ru/workgroups/group/{task_info['groupId']}/tasks/task/view/{['id']}/\n\n"
                            f"Поставленные ранее:\n {similar_tasks_url}"
             })
 
