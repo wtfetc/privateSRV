@@ -2,9 +2,12 @@ from datetime import datetime, timedelta
 from time import time, sleep
 from random import randint
 import json
+import base64
+import requests
 
-from web_app_4dk.tools import send_bitrix_request
-from web_app_4dk.chat_bot.SendMessage import bot_send_message
+# from web_app_4dk.tools import send_bitrix_request
+from mods.tools import send_bitrix_request
+from fast_bitrix24 import Bitrix
 
 
 def fill_task_title(req, event):
