@@ -21,30 +21,26 @@ def fill_task_title(req, event):
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
-    print("00")
-    if not task_info or 'task' not in task_info or not task_info['task']:
-        print("0") # если задача удалена или в иных ситуациях
+
+    if not task_info or 'task' not in task_info or not task_info['task']: # если задача удалена или в иных ситуациях
         return
     
     task_info = task_info['task']
   
 
-    if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']:
-        print("1") # ufCrmTask - связь с сущностью (список)
+    if 'ufCrmTask' not in task_info or not task_info['ufCrmTask']: # ufCrmTask - связь с сущностью (список)
         return
 
     company_crm = list(filter(lambda x: 'CO' in x, task_info['ufCrmTask']))
     uf_crm_task = []
     if not company_crm:
-        print("2")
         contact_crm = list(filter(lambda x: 'C_' in x, task_info['ufCrmTask']))
         if not contact_crm:
-            print("3")
             return
         
         # если к задаче прикреплен только контакт
         contact_crm = contact_crm[0][2:]
-        main_company = b.get_all('crm.contact.get', {'id': contact_crm, 'select': ['UF_CRM_1709218047']}) # читаем поле Основная компания
+        main_company = b.get_all('crm.contact.get', {'id': contact_crm})['UF_CRM_1709218047'] # читаем поле Основная компания
         print(main_company)
 
         if main_company: # если основная компания заполнена, то читаем у неё поле Тип компании
@@ -106,6 +102,5 @@ def fill_task_title(req, event):
 def task_handler(req, event=None):
     try:
         task_info = fill_task_title(req, event)
-        print("10")
     except:
         return
