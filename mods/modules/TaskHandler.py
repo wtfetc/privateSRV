@@ -60,10 +60,11 @@ def fill_task_title(req, event):
                 'select': ['UF_CRM_1709217643'],     # Вес сделок
                 'filter': {
                     'ID': contact_companies,
-                    '!COMPANY_TYPE': '1',
+                    #'!COMPANY_TYPE': '1',
                 }
             })
-            print(contact_companies_info)
+            active_companies = list(filter(lambda x: contact_companies_info['COMPANY_TYPE'] != x['1'], contact_companies_info))
+            print(active_companies)
             if contact_companies_info:
                 for i in range(len(contact_companies_info)):
                     if not contact_companies_info[i]['UF_CRM_1709217643']:
