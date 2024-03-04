@@ -64,7 +64,7 @@ def fill_task_title(req, event):
                 }
             })
             print(contact_companies_info)
-            active_companies = list(filter(lambda x: x['COMPANY_TYPE'] != ['1'], contact_companies_info))
+            active_companies = list(filter(lambda x: x['COMPANY_TYPE'] != '1', contact_companies_info))
             print(active_companies)
             if contact_companies_info:
                 for i in range(len(contact_companies_info)):
