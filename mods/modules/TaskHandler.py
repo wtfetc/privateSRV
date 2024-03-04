@@ -47,6 +47,7 @@ def fill_task_title(req, event):
 
             if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании != Закончился ИТС
                 company_id = main_company
+                uf_crm_task = ['CO_' + company_id, 'C_' + contact_crm] # нельзя дописать, можно только перезаписать обоими значениями заново
                 
         if not main_company or company_info['COMPANY_TYPE'] in ['1']:
 
@@ -67,7 +68,7 @@ def fill_task_title(req, event):
                     if not active_companies[i]['UF_CRM_1709217643']:
                         active_companies[i]['UF_CRM_1709217643'] = 0
                 best_value_company = list(sorted(active_companies, key=lambda x: float(x['UF_CRM_1709217643'])))[-1]['ID'] # последний элемент в общем списке - с макс value
-                uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно толлько перезаписать обоими значениями заново
+                uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно только перезаписать обоими значениями заново
                 company_id = best_value_company # это для тайтла
 
             elif contact_companies_info: # если есть привязанные компании с НЕ действующим ИТС
@@ -75,7 +76,7 @@ def fill_task_title(req, event):
                     if not contact_companies_info[i]['UF_CRM_1709217643']:
                         contact_companies_info[i]['UF_CRM_1709217643'] = 0
                 best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1709217643'])))[-1]['ID'] # последний элемент в общем списке - с макс value
-                uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно толлько перезаписать обоими значениями заново
+                uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно только перезаписать обоими значениями заново
                 company_id = best_value_company # это для тайтла
         
     else:
