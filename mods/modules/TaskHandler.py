@@ -59,14 +59,22 @@ def fill_task_title(req, event):
             contact_companies_info = b.get_all('crm.company.list', { # читаем вес сделок всех компаний, привязанных к контакту
                 'select': ['COMPANY_TYPE', 'UF_CRM_1709217643'],     # Вес сделок
                 'filter': {
-                    'ID': contact_companies,
-                    #'!COMPANY_TYPE': '1',
+                    'ID': contact_companies
                 }
             })
             print(contact_companies_info)
             active_companies = list(filter(lambda x: x['COMPANY_TYPE'] != '1', contact_companies_info))
             print(active_companies)
-            if contact_companies_info:
+            if active_companies: # если есть привязанные компании с действующим ИТС
+                for i in range(len(active_companies)):
+                    if not active_companies[i]['UF_CRM_1709217643']:
+                        active_companies[i]['UF_CRM_1709217643'] = 0
+                best_value_company = list(sorted(active_companies, key=lambda x: float(x['UF_CRM_1709217643'])))[-1]['ID'] # последний элемент в общем списке - с макс value
+                print(best_value_company)
+                uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно толлько перезаписать обоими значениями заново
+                company_id = best_value_company # это для тайтла
+
+            elif contact_companies_info: # если есть привязанные компании с НЕ действующим ИТС
                 for i in range(len(contact_companies_info)):
                     if not contact_companies_info[i]['UF_CRM_1709217643']:
                         contact_companies_info[i]['UF_CRM_1709217643'] = 0
