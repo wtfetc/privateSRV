@@ -25,6 +25,8 @@ def check_similar_tasks_this_hour(task_info, company_id):
     }
     end_time_filter = datetime.now().strftime('%Y-%m-%d %H:%M:%S') #форматируем дату в строку
     start_time_filter = (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S') #вычитаем из тек даты 1 час
+    print(end_time_filter)
+    print(start_time_filter)
     similar_tasks = b.get_all('tasks.task.list', {
         'filter': {
             '!ID': task_info['id'],
