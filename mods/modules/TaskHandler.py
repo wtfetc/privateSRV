@@ -47,9 +47,12 @@ def fill_task_title(req, event):
             print("4")
             main_company = main_company[0][3:]
             company_info = b.get_all('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
-            if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании = Закончился ИТС
-                company_id = main_company        
+            if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании != Закончился ИТС
+                company_id = main_company        #если иначе то куда идем???
+                print("5")
+                
         else:
+            print("6")
             contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
             if not contact_companies: # если нет привязанных компаний
                 return
@@ -64,9 +67,6 @@ def fill_task_title(req, event):
                 for i in range(len(contact_companies_info)):
                     if not contact_companies_info[i]['UF_CRM_1709217643']:
                         contact_companies_info[i]['UF_CRM_1709217643'] = 0
-                #best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1709217643'])))
-                #print(best_value_company)
-                #best_value_company = best_value_company[-1]['ID']
                 best_value_company = list(sorted(contact_companies_info, key=lambda x: float(x['UF_CRM_1709217643'])))[-1]['ID'] # последний элемент в общем списке - с макс value
                 print(best_value_company)
                 uf_crm_task = ['CO_' + best_value_company, 'C_' + contact_crm] # нельзя дописать, можно толлько перезаписать обоими значениями заново
