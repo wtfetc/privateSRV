@@ -11,7 +11,7 @@ from fast_bitrix24 import Bitrix
 
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
-    task_info = send_bitrix_request('tasks.task.get', { # читаем инфо о задаче
+    task_info = b.get_all('tasks.task.get', { # читаем инфо о задаче
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
@@ -38,20 +38,20 @@ def fill_task_title(req, event):
         
         # если к задаче прикреплен только контакт
         contact_crm = contact_crm[0][2:]
-        main_company = send_bitrix_request('crm.contact.get', {'id': contact_crm, 'select': ['UF_CRM_1709218047']}) # читаем поле Основная компания
+        main_company = b.get_all('crm.contact.get', {'id': contact_crm, 'select': ['UF_CRM_1709218047']}) # читаем поле Основная компания
         print(main_company)
 
         if main_company: # если основная компания заполнена, то читаем у неё поле Тип компании
             print("4")
             main_company = main_company[0][3:]
-            company_info = send_bitrix_request('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
+            company_info = b.get_all('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
             if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании = Закончился ИТС
                 company_id = main_company        
         else:
-            contact_companies = list(map(lambda x: x['COMPANY_ID'], send_bitrix_request('crm.contact.company.items.get', {'id': contact_crm})))
+            contact_companies = list(map(lambda x: x['COMPANY_ID'], b.get_all('crm.contact.company.items.get', {'id': contact_crm})))
             if not contact_companies: # если нет привязанных компаний
                 return
-            contact_companies_info = send_bitrix_request('crm.company.list', { # читаем вес сделок всех компаний, привязанных к контакту
+            contact_companies_info = b.get_all('crm.company.list', { # читаем вес сделок всех компаний, привязанных к контакту
                 'select': ['UF_CRM_1660818061808'],     # Вес сделок
                 'filter': {
                     'ID': contact_companies,
@@ -73,7 +73,7 @@ def fill_task_title(req, event):
         company_id = company_crm[0][3:]
 
 
-    company_info = send_bitrix_request('crm.company.get', { # читаем инфо о найденной компании
+    company_info = b.get_all('crm.company.get', { # читаем инфо о найденной компании
         'ID': company_id,
     })
 
@@ -81,13 +81,13 @@ def fill_task_title(req, event):
         return
 
     if not uf_crm_task: #если не заполнено CRM - если в задаче уже есть company_id и нам не нужно ее заполнять
-        send_bitrix_request('tasks.task.update', {
+        b.get_all('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}" # то обновляем название задачи
                  }})
     else:
-        send_bitrix_request('tasks.task.update', {
+        b.get_all('tasks.task.update', {
             'taskId': task_id,
             'fields': {
                 'TITLE': f"{task_info['title']} {company_info['TITLE']}", # то обновляем название задачи и привязку к crm
