@@ -45,7 +45,6 @@ def fill_task_title(req, event):
 
         if main_company: # если основная компания заполнена, то читаем у неё поле Тип компании
             print("4")
-            main_company = main_company[0][3:]
             company_info = b.get_all('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
             print(company_info)
             print(company_info['COMPANY_TYPE'])
