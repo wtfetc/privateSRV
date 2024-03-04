@@ -9,13 +9,13 @@ import requests
 from mods.tools import send_bitrix_request
 from fast_bitrix24 import Bitrix
 
-
 def fill_task_title(req, event):
     task_id = req['data[FIELDS_AFTER][ID]']
     task_info = send_bitrix_request('tasks.task.get', { # читаем инфо о задаче
         'taskId': task_id,
         'select': ['*', 'UF_*']
     })
+    print('00')
     if not task_info or 'task' not in task_info or not task_info['task']:
         print('0') # если задача удалена или в иных ситуациях
         return
