@@ -46,10 +46,9 @@ def fill_task_title(req, event):
         if main_company: # если основная компания заполнена, то читаем у неё поле Тип компании
             print("4")
             company_info = b.get_all('crm.company.get', {'id': main_company, 'select': ['COMPANY_TYPE']})
-            print(company_info)
-            print(company_info['COMPANY_TYPE'])
+
             if company_info['COMPANY_TYPE'] not in ['1']: # если тип компании != Закончился ИТС
-                company_id = main_company        #если иначе то куда идем???
+                company_id = main_company
                 print("5")
                 
         if not main_company or company_info['COMPANY_TYPE'] in ['1']:
@@ -61,6 +60,7 @@ def fill_task_title(req, event):
                 'select': ['UF_CRM_1709217643'],     # Вес сделок
                 'filter': {
                     'ID': contact_companies,
+                    '!COMPANY_TYPE': '1',
                 }
             })
             print(contact_companies_info)
