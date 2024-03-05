@@ -29,7 +29,7 @@ def check_similar_tasks_this_hour(task_info, company_id):
     similar_tasks = b.get_all('tasks.task.list', {
         'filter': {
             '!ID': task_info['id'],
-            #'>=CREATED_DATE': start_time_filter,
+            '>=CREATED_DATE': start_time_filter,
             #'<CREATED_DATE': end_time_filter,
             'GROUP_ID': task_info['groupId'],
             'UF_CRM_TASK': ['CO_' + company_id]
@@ -40,13 +40,13 @@ def check_similar_tasks_this_hour(task_info, company_id):
         similar_tasks = similar_tasks['tasks']
     else:
         return
-    similar_tasks_url = '\n'.join(tuple(map(lambda x: f"https://vc1c.bitrix24.ru/workgroups/group/{['groupId']}/tasks/task/view/{x['id']}/", similar_tasks)))
+    similar_tasks_url = '\n'.join(tuple(map(lambda x: f"https://vc1c.bitrix24.ru/workgroups/group/{task_info['groupId']}/tasks/task/view/{x['id']}/", similar_tasks)))
     if similar_tasks:
         for user_id in users_id:
             b.get_all('im.notify.system.add', {
                 'USER_ID': user_id,
                 'MESSAGE': f"Для текущей компании в группе {group_names[task_info['groupId']]} уже были поставлены задачи за прошедший час\n"
-                           f"Новая задача: https://vc1c.bitrix24.ru/workgroups/group/{task_info['groupId']}/tasks/task/view/{['id']}/\n\n"
+                           f"Новая задача: https://vc1c.bitrix24.ru/workgroups/group/{task_info['groupId']}/tasks/task/view/{task_info['id']}/\n\n"
                            f"Поставленные ранее:\n {similar_tasks_url}"
             })
 
