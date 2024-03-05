@@ -16,7 +16,7 @@ TOKEN = "6830145088:AAFZyKZIeqg0JhtVNCjP3QteEByxptrv6oE"
 chat_id = "-4033252882"
 
 def check_similar_tasks_this_hour(task_info, company_id):
-    users_id = [task_info['createdBy'], '501']
+    users_id = [task_info['createdBy']]
     if task_info['groupId'] not in ['119', '97']:
         return
     group_names = {
