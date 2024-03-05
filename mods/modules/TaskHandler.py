@@ -29,12 +29,11 @@ def check_similar_tasks_this_hour(task_info, company_id):
         'filter': {
             '!ID': task_info['id'],
             '>=CREATED_DATE': time_filter,
-            #'>=DEADLINE': time_filter,
             'GROUP_ID': task_info['groupId'],
             'UF_CRM_TASK': ['CO_' + company_id]
         }
     })
-    print(len(similar_tasks))
+
     if not similar_tasks:
         return
         
