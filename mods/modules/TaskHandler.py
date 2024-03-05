@@ -35,10 +35,9 @@ def check_similar_tasks_this_hour(task_info, company_id):
         }
     })
     print(similar_tasks)
-    if similar_tasks:
-        similar_tasks = similar_tasks['tasks']
-    else:
+    if not similar_tasks:
         return
+        
     similar_tasks_url = '\n'.join(tuple(map(lambda x: f"https://vc1c.bitrix24.ru/workgroups/group/{task_info['groupId']}/tasks/task/view/{x['id']}/", similar_tasks)))
     if similar_tasks:
         for user_id in users_id:
