@@ -28,7 +28,7 @@ def check_similar_tasks_this_hour(task_info, company_id):
     print(end_time_filter)
     similar_tasks = b.get_all('tasks.task.list', {
         'filter': {
-            '!ID': task_info['ID'],
+            #'!ID': task_info['id'],
             '>=CREATED_DATE': start_time_filter,
             '<CREATED_DATE': end_time_filter,
             'GROUP_ID': task_info['groupId'],
