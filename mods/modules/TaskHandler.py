@@ -23,13 +23,13 @@ def check_similar_tasks_this_hour(task_info, company_id):
         '119': 'Тестовая',
         '97': 'ЛК',
     }
-    time_filter = (datetime.now() - timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S') #вычитаем из тек даты 1 час
+    time_filter = (datetime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S') #вычитаем из тек даты 1 час
     
     similar_tasks = b.get_all('tasks.task.list', {
         'filter': {
             '!ID': task_info['id'],
-            #'>=CREATED_DATE': time_filter,
-            '>=DEADLINE': time_filter,
+            '>=CREATED_DATE': time_filter,
+            #'>=DEADLINE': time_filter,
             'GROUP_ID': task_info['groupId'],
             'UF_CRM_TASK': ['CO_' + company_id]
         }
