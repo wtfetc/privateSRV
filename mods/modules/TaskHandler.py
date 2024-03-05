@@ -30,7 +30,7 @@ def check_similar_tasks_this_hour(task_info, company_id):
         'filter': {
             '!ID': task_info['id'],
             '>=CREATED_DATE': start_time_filter,
-            #'<CREATED_DATE': end_time_filter,
+            '<CREATED_DATE': end_time_filter,
             'GROUP_ID': task_info['groupId'],
             'UF_CRM_TASK': ['CO_' + company_id]
         }
@@ -38,7 +38,6 @@ def check_similar_tasks_this_hour(task_info, company_id):
     print(len(similar_tasks))
     if similar_tasks:
         similar_tasks = similar_tasks['tasks']
-        print(similar_tasks)
     else:
         return
     similar_tasks_url = '\n'.join(tuple(map(lambda x: f"https://vc1c.bitrix24.ru/workgroups/group/{task_info['groupId']}/tasks/task/view/{x['id']}/", similar_tasks)))
